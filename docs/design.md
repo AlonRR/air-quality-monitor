@@ -133,6 +133,10 @@ the divider, the wire channel's ribs, the USB-C filler, the nut bosses, the back
 ledge. On the cover: the partition, the U's arms, the front stop, and all round the inside where the walls
 meet the front — the walls already meet each other in a radius.
 
+**Round the window under the SPS30, every corner is filleted, for looks**: the window's two front
+corners on the cover, and through it on the plate the divider, the ledges and the standoff ribs where they
+meet the plate. The inside cove stops at the window, where there is no bottom wall for the front to meet.
+
 **The board's clips and the cover's clasp have none, on purpose.** They hold the board by flexing, and their
 fit was set by printing them; a fillet would stiffen them, change how the board snaps in, and make them
 likelier to crack than to give. The baffle, the SGP41's post and rib see almost no load, so they have none

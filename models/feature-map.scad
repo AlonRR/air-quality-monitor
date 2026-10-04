@@ -56,7 +56,7 @@ if (view == "back") {
     for (x = key_xs) marker(2, [x, back_t + f, key_z1 + 7.5]);                      // keyholes
     marker(3,  [ch_x0 - cradle_t / 2, y_ch1 + f, z_sps0 + 22]);                     // channel walls
     marker(3,  [ch_x1 + cradle_t / 2, y_ch1 + f, z_sps0 + 22]);
-    marker(4,  [ch_x0 + ledge_w / 2 + 2, y_sps1 + f, -3.5]);                        // ledge
+    marker(4,  [ch_x0 + ledge_w / 2 + 2, y_ch1 + f, -3.5]);                         // ledge
     marker(5,  [x_div, y_in1 - part_fit + f, -divider_proud - 3.5]);                // divider
     for (c = clasp_xs) marker(6, [(c[0] + c[1]) / 2, y_b0 + clasp_low + f, z_f0 - 3.5]);   // the board's back clips
     marker(7,  [stop_x0 + rim_t / 2 + 3.5, y_b0 + stop_reach + f, zu + 4.5]);       // back stop

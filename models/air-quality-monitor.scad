@@ -477,12 +477,14 @@ module back_plate() place() difference() {
         }
 
         // the ledges the sensor stands on, one under each end of the air face
-        translate([ch_x0 - cradle_t / 2, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, y_sps1 - back_t + eps, z_sps0]);
-        translate([ch_x1 - ledge_w, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, y_sps1 - back_t + eps, z_sps0]);
+        // out as far as the walls, so the two end level with each other
+        translate([ch_x0 - cradle_t / 2, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, y_ch1 - back_t + eps, z_sps0]);
+        translate([ch_x1 - ledge_w, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, y_ch1 - back_t + eps, z_sps0]);
         // the ribs the sensor stands on, sps_lift off the plate, so air rises behind it from the window: one
         // at each end of its back, against the channel's walls, and one behind the divider, which keeps the
         // outlet's side of that gap apart from the inlets'
-        for (r = [[ch_x0 - eps, sps_x0 + cradle_t], [sps_x1 - cradle_t, ch_x1 + eps],
+        // the end ones reach in exactly as far as the ledges, so the rib and the ledge are one face
+        for (r = [[ch_x0 - eps, sps_x0 + ledge], [sps_x1 - ledge, ch_x1 + eps],
                   [x_div - cradle_t / 2, x_div + cradle_t / 2]])
             box3([r[0], back_t - eps, 0], [r[1], y_sps0, z_sps1]);
 
@@ -542,6 +544,9 @@ module cover() place() {
         // the window over the SPS30's air face - open at the back edge, so it is a notch, not a bridge
         translate([ch_x0 - cradle_t - part_fit, back_t - eps, -eps])
             cube([ch_in_w + 2 * (cradle_t + part_fit), y_in1 - back_t + eps, wall + 2 * eps]);
+        // ... and the inside cove across it: there is no bottom wall there for the front to meet
+        translate([ch_x0 - cradle_t - part_fit, back_t - eps, -eps])
+            cube([ch_in_w + 2 * (cradle_t + part_fit), y_in1 - back_t + eps, wall + fillet_r + 2 * eps]);
         // the right-hand wall over the board's USB-C end, thinned from inside to port_wall over the board's
         // whole width and height - a notch open at the back edge. Its steps back to the full wall are 45
         // degrees, not square: pulling the plug loads this stretch of wall, and a crack would start at a
@@ -606,6 +611,13 @@ module plate_fillets() {
     zw = wall + fillet_clear;
     fillet_line([ch_x0 - cradle_t, back_t, zw], [-1, 0, 0], [0, 1, 0], [0, 0, 1], z_sps1 - zw);
     fillet_line([ch_x1 + cradle_t, back_t, zw], [1, 0, 0], [0, 1, 0], [0, 0, 1], z_sps1 - zw);
+    // the ledges and the end ribs over them, on their inner faces - one face each - and the middle rib's
+    // two sides above the divider: the corners seen through the window. Behind the sensor they stay a
+    // millimetre short of it, which stands sps_lift off the plate.
+    fillet_line([sps_x0 + ledge, back_t, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], z_sps1);
+    fillet_line([sps_x1 - ledge, back_t, 0], [-1, 0, 0], [0, 1, 0], [0, 0, 1], z_sps1);
+    for (k = [-1, 1])
+        fillet_line([x_div + k * cradle_t / 2, back_t, z_sps0], [k, 0, 0], [0, 1, 0], [0, 0, 1], z_sps1 - z_sps0);
     // the divider, on both sides: its top carries the sensor, its bottom is the box's bottom edge
     for (k = [-1, 1])
         fillet_line([x_div + k * divider_t / 2, back_t, 0], [k, 0, 0], [0, 1, 0], [0, 0, 1], z_sps0);
@@ -644,6 +656,9 @@ module cover_fillets() {
         box3([bump_x0 - fillet_clear, back_t - eps, u_z0 - fillet_clear],
              [bump_x1 + fillet_clear, back_t + bump_out + fillet_clear, H]);
     }
+    // the window's two front corners, where its sides meet the front
+    for (s = [[ch_x0 - cradle_t - part_fit, 1], [ch_x1 + cradle_t + part_fit, -1]])
+        fillet_line([s[0], y_in1, 0], [s[1], 0, 0], [0, -1, 0], [0, 0, 1], wall);
     // the front stop, the back stop's twin: on its far side from the board only
     fillet_line([stop_x0 + rim_t, y_in1, z_f0], [1, 0, 0], [0, -1, 0], [0, 0, 1], zu + sm_pcb_t + 1 - z_f0);
     // the partition, both sides, at the front

@@ -18,6 +18,8 @@ As you face the box with the cover off:
 3. **Channel walls** — the SPS30 is set between them from the front, and they hold it sideways. They
    have no lips: anything over the sensor's face would block its way in.
 4. **Ledges** — the sensor stands on these, one under each end of its air face, clear of the openings.
+   They reach out as far as the channel's walls, and the end standoff ribs (15) above them reach in exactly
+   as far, so each end is one face.
 5. **Divider** — carries the middle of the sensor and splits its inlet side from its outlet side, so
    the outlet's air cannot loop straight back into the inlets. A wall filling the blank band between
    them, `divider_clear` short of each, it ends flush with the box's bottom edge.
