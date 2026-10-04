@@ -24,16 +24,16 @@ still exits 0, so read the output, not the exit code. The routes are laid out fo
 outlet at the right.
 
     openscad -o docs/assembly-exploded.png -D 'view="exploded"' --imgsize=1800,1500 --projection=o --viewall \
-      --autocenter --camera=33,80,38,68,0,252,560 --colorscheme=Tomorrow assembly-views.scad
+      --autocenter --camera=33,80,38,68,0,252,560 --colorscheme=Tomorrow models/assembly-views.scad
     openscad -o docs/assembly-open.png -D 'view="open"' --imgsize=1800,1500 --projection=o --viewall \
-      --autocenter --camera=33,0,38,78,0,195,260 --colorscheme=Tomorrow assembly-views.scad
+      --autocenter --camera=33,0,38,78,0,195,260 --colorscheme=Tomorrow models/assembly-views.scad
     openscad -o docs/wiring-detail.png -D 'view="open"' -D detail=true --imgsize=1800,1350 --projection=o \
-      --camera=8,11,51,112,0,215,70 --colorscheme=Tomorrow assembly-views.scad
+      --camera=8,11,51,112,0,215,70 --colorscheme=Tomorrow models/assembly-views.scad
 
 draw_model = false MUST come after the include: the last assignment in a scope wins.
 */
 include <air-quality-monitor.scad>
-use <../lib/axes.scad>
+use <lib/axes.scad>
 draw_model = false;
 
 view = "open";   // "exploded" or "open"

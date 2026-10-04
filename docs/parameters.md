@@ -1,6 +1,6 @@
 # Parameters
 
-Every dimension has a name in [`air-quality-monitor.params.scad`](../air-quality-monitor.params.scad), so a
+Every dimension has a name in [`air-quality-monitor.params.scad`](../models/air-quality-monitor.params.scad), so a
 value goes in against its name rather than a description. This page says where each came from.
 
 If a part changes, set the new value there. A value not yet measured goes in the `unmeasured` list,
@@ -50,7 +50,7 @@ measured on 3 Oct 2026 — A, B and C here:
 
 ![the three readings taken on the boards](board-measure.png)
 
-Drawn by [`board-measure.scad`](../board-measure.scad), the boards as they lie on the table.
+Drawn by [`board-measure.scad`](../models/board-measure.scad), the boards as they lie on the table.
 
 | Name | Value | What |
 |---|---|---|

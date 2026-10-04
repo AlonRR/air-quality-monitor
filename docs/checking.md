@@ -14,9 +14,9 @@ Run from the repository's root:
 
 ```sh
 P="0.2mm QUALITY @MK3 - no skirt, no brim, no crossing perimeter"
-scripts/scad-check.sh models/air-quality-monitor/air-quality-monitor-back.scad  "$P" "Inslogic ASA"
-scripts/scad-check.sh models/air-quality-monitor/air-quality-monitor-cover.scad "$P" "Inslogic ASA"
-scripts/scad-check.sh models/air-quality-monitor/air-quality-monitor-fits.scad  "$P" "Inslogic ASA"
+scripts/scad-check.sh models/air-quality-monitor-back.scad  "$P" "Inslogic ASA"
+scripts/scad-check.sh models/air-quality-monitor-cover.scad "$P" "Inslogic ASA"
+scripts/scad-check.sh models/air-quality-monitor-fits.scad  "$P" "Inslogic ASA"
 ```
 
 Each should report **one manifold part** and `fdm_*` values matching the profile: the back plate and the
@@ -32,10 +32,10 @@ cover each 68.7 × 76.3 mm on the bed.
 
 ## Collisions — in the model
 
-Render each to STL from `models/air-quality-monitor/`, for example:
+Render each to STL from the repository's root, for example:
 
 ```sh
-openscad -o check.stl -D 'part="check_components"' air-quality-monitor.scad
+openscad -o check.stl -D 'part="check_components"' models/air-quality-monitor.scad
 ```
 
 **Run each with `outlet_at_left` set both ways** (add `-D outlet_at_left=true`). The model mirrors, and a

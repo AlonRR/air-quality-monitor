@@ -8,7 +8,7 @@ The xyz arrows every figure in this repository carries, so that a reading taken 
 0.7 mm loose in x") maps onto the model without guessing which way is which. Red +x, green +y, blue +z,
 each labelled at its tip. They show the axes of the model drawn, in that picture.
 
-    use <../lib/axes.scad>
+    use <lib/axes.scad>
     axes([x, y, z], l = 15, cam = [rx, ry, rz]);
 
 cam is the picture's --camera angles: the labels are turned by them so that they face the camera. An

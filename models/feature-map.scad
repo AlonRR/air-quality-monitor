@@ -11,9 +11,9 @@ It INCLUDES the model rather than restating it, so every marker sits wherever th
 that feature. Change a parameter and re-render, and the map follows.
 
     openscad -o docs/feature-map-back.png  -D 'view="back"'  --imgsize=1800,1500 --projection=o --viewall \
-      --autocenter --camera=31,0,44,78,0,195,260 --colorscheme=Tomorrow feature-map.scad
+      --autocenter --camera=31,0,44,78,0,195,260 --colorscheme=Tomorrow models/feature-map.scad
     openscad -o docs/feature-map-cover.png -D 'view="cover"' --imgsize=1800,1500 --projection=o --viewall \
-      --autocenter --camera=31,0,44,100,0,15,260 --colorscheme=Tomorrow feature-map.scad
+      --autocenter --camera=31,0,44,100,0,15,260 --colorscheme=Tomorrow models/feature-map.scad
 
 The back plate is seen as you face the box with the cover off, so its right is your right. The cover is
 seen from INSIDE, from the wall, because that is where most of its features are - so its left and right
@@ -23,7 +23,7 @@ draw_model = false MUST come after the include: the last assignment in a scope w
 the part while keeping every variable.
 */
 include <air-quality-monitor.scad>
-use <../lib/axes.scad>
+use <lib/axes.scad>
 draw_model = false;
 
 view = "back";   // "back" or "cover"

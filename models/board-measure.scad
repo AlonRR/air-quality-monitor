@@ -15,10 +15,10 @@ Outlines and pins are the params file's; the parts on the boards are only roughl
 them.
 
     openscad -o docs/board-measure.png --imgsize=1800,1300 --projection=o \
-      --camera=35,22.3,0,0,0,0,152 --colorscheme=Tomorrow board-measure.scad
+      --camera=35,22.3,0,0,0,0,152 --colorscheme=Tomorrow models/board-measure.scad
 */
 include <air-quality-monitor.params.scad>
-use <../lib/axes.scad>
+use <lib/axes.scad>
 draw_model = false;   // only the variables
 
 cam = [0, 0, 0];      // seen from straight above, so the text needs no turning

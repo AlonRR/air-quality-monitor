@@ -14,12 +14,12 @@ own. Three colours: the base, everything standing on it, and the dots - plus the
 carries (../lib/axes.scad).
 
     openscad -o docs/fits-map.png --imgsize=1600,1150 --projection=o --viewall --autocenter \
-      --camera=0,0,0,30,0,0,300 --colorscheme=Tomorrow fits-map.scad
+      --camera=0,0,0,30,0,0,300 --colorscheme=Tomorrow models/fits-map.scad
 
 draw_fits = false MUST come after the include, so the test does not also draw itself uncoloured.
 */
 include <air-quality-monitor-fits.scad>
-use <../lib/axes.scad>
+use <lib/axes.scad>
 draw_fits = false;
 
 // the split sits 0.3 mm above the base, so the pads under the posts read as pieces

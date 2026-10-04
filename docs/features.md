@@ -1,6 +1,6 @@
 # What each feature is for
 
-Drawn by [`feature-map.scad`](../feature-map.scad), which includes the model, so the numbers move with it.
+Drawn by [`feature-map.scad`](../models/feature-map.scad), which includes the model, so the numbers move with it.
 
 ## The back plate
 

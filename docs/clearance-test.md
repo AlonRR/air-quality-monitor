@@ -2,7 +2,7 @@
 
 **Every fit is tested now** — the last on 4 Oct 2026 — so the box needs no more of this. The test is
 kept for when a setting, the printer or the filament changes: then reprint
-[`air-quality-monitor-fits.scad`](../air-quality-monitor-fits.scad) before the box, in the same ASA with the
+[`air-quality-monitor-fits.scad`](../models/air-quality-monitor-fits.scad) before the box, in the same ASA with the
 same profile — one flat part, about 33 min and 3.2 g. It tries each fit three ways. Every piece is the box's own geometry — drawn by the box's own modules, with only the fit changed,
 and lying on the bed as it does in the back plate — so it tests exactly what the box will print.
 
@@ -13,7 +13,7 @@ their results are below — and their pieces are in the repository's history.
 
 ![the clearance test, lettered](fits-map.png)
 
-Drawn by [`fits-map.scad`](../fits-map.scad), which includes the test. Hold the part with the dots nearest
+Drawn by [`fits-map.scad`](../models/fits-map.scad), which includes the test. Hold the part with the dots nearest
 you — then it matches the picture, with the edge that faced the printer's front nearest you.
 
 The arrows are the part's own axes, as it lay on the bed: **+x to the right, +y away from the front edge
@@ -35,7 +35,7 @@ The values follow the settings, so after a setting changes, a reprint tries a ne
 
 ## Turning a result into a setting
 
-Set the value in [`air-quality-monitor.params.scad`](../air-quality-monitor.params.scad) and delete its name
+Set the value in [`air-quality-monitor.params.scad`](../models/air-quality-monitor.params.scad) and delete its name
 from `untested_fits`. If even the tighter try is loose, or the looser one still binds, the ladder was in
 the wrong place: say so, and it moves.
 
@@ -89,7 +89,7 @@ SGP41's screw; F, the cover's screw holes; G, the mounting tabs' holes; H, a peg
 
   ![the two widths to measure on the SPS30](sps30-measure.png)
 
-  Drawn by [`sps30-measure.scad`](../sps30-measure.scad), in the clearance test's axes.
+  Drawn by [`sps30-measure.scad`](../models/sps30-measure.scad), in the clearance test's axes.
 - **D's screws stopped about 1 mm short in all three bosses**, because that print's pilots were 13 mm
   deep for a 14 mm screw. The three still compare. `pilot_d` has since gone from the box with the
   self-tapping cover screws: its bottom corners now screw into nuts.

@@ -23,7 +23,7 @@ from the USB-C end.
 | SGP41 SCL | SCL | **GPIO6** | back, 2nd |
 
 The SPS30's colours are its own lead's, checked with a meter —
-[`firmware/print-chamber.yaml`](../../../firmware/print-chamber.yaml) says how, why colours are not to be
+[`firmware/print-chamber.yaml`](../firmware/print-chamber.yaml) says how, why colours are not to be
 trusted on another lead, and why the SGP41's VIN must be 3V3. Three wires share the GND pad: twist the
 SPS30's orange and yellow together first.
 
@@ -36,7 +36,7 @@ ones, each meeting its pad:
 
 ![the wires at the board's pins, from below](wiring-detail.png)
 
-Both are drawn by [`assembly-views.scad`](../assembly-views.scad). The routes are one way the wires can
+Both are drawn by [`assembly-views.scad`](../models/assembly-views.scad). The routes are one way the wires can
 go — a wire bends where it likes — but each ends on its pin from the table, and the drawing checks them
 (below). The SGP41's colours in the pictures are stand-ins: purple VIN, brown GND, blue SDA, green SCL.
 
@@ -98,7 +98,7 @@ screws' heads as they slide up their keyholes, and the air gap in front of the s
 must be empty, so OpenSCAD writes no file:
 
 ```sh
-openscad -o check_wires.stl -D 'view="check_wires"' assembly-views.scad   # "Current top level object is empty"
+openscad -o check_wires.stl -D 'view="check_wires"' models/assembly-views.scad   # "Current top level object is empty"
 ```
 
 It counts the strip along the GY-SGP41's pin holes, on its back, as bare — the wires leave the module
