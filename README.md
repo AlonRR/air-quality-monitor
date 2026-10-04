@@ -24,13 +24,17 @@ How to check a change to the box: [Checking it](models/air-quality-monitor/docs/
 
 ## Licence
 
+This is open hardware. **Commercial use is allowed**, but anyone who ships a product made from these designs
+must publish their changes under the same licence.
+
 | Licence | Covers |
 |---|---|
-| [CC-BY-4.0](LICENSES/CC-BY-4.0.txt) — Creative Commons Attribution 4.0 | the box: `models/`, its pages and figures, and the READMEs |
+| [CERN-OHL-S-2.0](LICENSES/CERN-OHL-S-2.0.txt) — CERN Open Hardware Licence v2, Strongly Reciprocal | the design and its documentation: `models/`, its pages and figures, and the READMEs |
 | [MPL-2.0](LICENSES/MPL-2.0.txt) — Mozilla Public License 2.0 | the code: `firmware/` and `scripts/` |
 
 Every file says which licence applies to it. The `.scad` files, the script and the firmware carry an SPDX
-header; `REUSE.toml` covers the rest.
+header; `REUSE.toml` covers the rest, and the repository passes `reuse lint`. `LICENSE` at the root is
+the CERN-OHL-S text again, for tools that look only there.
 
 ## Related
 

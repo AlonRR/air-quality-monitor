@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Alon A. Rabinowitz
-// SPDX-License-Identifier: CC-BY-4.0
-// Shared under the Creative Commons Attribution 4.0 International licence
-// (LICENSES/CC-BY-4.0.txt): reuse freely, including commercially, with attribution.
+// SPDX-License-Identifier: CERN-OHL-S-2.0
+// Open hardware, made available under the CERN Open Hardware Licence v2 - Strongly Reciprocal
+// (LICENSES/CERN-OHL-S-2.0.txt), without any express or implied warranty: see the licence for its conditions.
 
 /*
 What was measured on the two boards on 3 Oct 2026, replacing three values read off photos: A, the strip of bare pads
