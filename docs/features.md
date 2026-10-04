@@ -46,8 +46,8 @@ As you face the box with the cover off:
     from the window and cools it: one at each end of its back, against the channel's walls, and one behind
     the divider, which keeps the outlet's side of that gap apart from the inlets'.
 
-The channel walls (3), divider (5), nut bosses (11), wire channel (13) and filler (14) have a 1 mm fillet
-at their roots, for strength — see [Design](design.md#fillets-at-the-thin-parts-roots).
+The channel walls (3), divider (5), back stop (7), the SGP41's ledge (10), nut bosses (11), wire channel
+(13) and filler (14) have a 1 mm fillet at their roots, for strength — see [Design](design.md#fillets-at-the-thin-parts-roots).
 
 More on 8–10 in [The SGP41's mount](sgp41-mount.md), and on 6 and 7 in [The USB-C end](usb-c-end.md).
 
@@ -85,5 +85,5 @@ Seen from inside — from the wall — so its left and right are swapped against
 13. **U** — two arms hanging from the top wall, either side of the plate's bump. They locate the cover's
     top; the two bottom screws hold the cover on.
 
-The partition (8), the U's arms (13), and the walls all round where they meet the front have a 1 mm fillet
-at their roots, for strength.
+The partition (8), the front stop (11), the U's arms (13), and the walls all round where they meet the
+front have a 1 mm fillet at their roots, for strength.

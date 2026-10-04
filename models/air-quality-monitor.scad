@@ -616,6 +616,11 @@ module plate_fillets() {
     // the USB-C filler, on its inner face: its outer face is the box's outside, and its top and bottom
     // stand in the cover's slot
     fillet_line([port_wall, back_t, z_uc - usb_fill_h], [1, 0, 0], [0, 1, 0], [0, 0, 1], 2 * usb_fill_h);
+    // the back stop, which takes the push of plugging in: on its far side from the board only - the board's
+    // end bears on the other
+    fillet_line([stop_x0 + rim_t, back_t, z_f0], [1, 0, 0], [0, 1, 0], [0, 0, 1], zu + sm_pcb_t + 1 - z_f0);
+    // the SGP41's ledge, a thin shelf out from the plate: under it - the rib stands on top of it
+    fillet_line([gy_x0, back_t, gy_z0 - pocket_fit - rim_t], [0, 0, -1], [0, 1, 0], [1, 0, 0], gy_x1 - gy_x0);
     // round the nut bosses, cut back from the cover's walls, which they stand part_fit inside
     for (x = nut_bx) intersection() {
         fillet_ring_y(x, nut_bz, nut_boss_d / 2, back_t);
@@ -639,6 +644,8 @@ module cover_fillets() {
         box3([bump_x0 - fillet_clear, back_t - eps, u_z0 - fillet_clear],
              [bump_x1 + fillet_clear, back_t + bump_out + fillet_clear, H]);
     }
+    // the front stop, the back stop's twin: on its far side from the board only
+    fillet_line([stop_x0 + rim_t, y_in1, z_f0], [1, 0, 0], [0, -1, 0], [0, 0, 1], zu + sm_pcb_t + 1 - z_f0);
     // the partition, both sides, at the front
     for (k = [-1, 1])
         fillet_line([x_div + k * rib_t / 2, y_in1, z_sps0 + part_fit], [k, 0, 0], [0, -1, 0], [0, 0, 1], sps_h - part_fit);

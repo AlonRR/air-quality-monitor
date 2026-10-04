@@ -129,16 +129,22 @@ down instead.
 **For strength, a concave fillet runs along the root of each thin part**, where it meets the face it stands
 on — `fillet_r`, 1 mm, about two beads, so a 0.9–1.35 mm part is roughly twice as thick where it bends.
 Only in 90° inside corners; outside edges stay as they are. On the back plate: the SPS30 channel's walls,
-the divider, the wire channel's ribs, the USB-C filler and the nut bosses. On the cover: the partition,
-the U's arms, and all round the inside where the walls meet the front — the walls already meet each other
-in a radius.
+the divider, the wire channel's ribs, the USB-C filler, the nut bosses, the back stop and the SGP41's
+ledge. On the cover: the partition, the U's arms, the front stop, and all round the inside where the walls
+meet the front — the walls already meet each other in a radius.
+
+**The board's clips and the cover's clasp have none, on purpose.** They hold the board by flexing, and their
+fit was set by printing them; a fillet would stiffen them, change how the board snaps in, and make them
+likelier to crack than to give. The baffle, the SGP41's post and rib see almost no load, so they have none
+either.
 
 **Some corners stay sharp because something fits against them**, and those are deliberate: the channel
 walls' inner faces, which the SPS30 stands 0.355 mm off; the lower wire rib's underside, `part_fit` over the
 sensor; the USB-C filler's outside face and its edges in the cover's slot; the divider's top, which carries
-the sensor. Each fillet is cut back `fillet_clear` (`part_fit`) from the cover's walls, the plate's bump
-and the cover's bottom wall, and the cover's window, thinned USB-C wall and vents cut through the inside
-one. [Checking it](checking.md) has the setting that proves those cut-backs are there.
+the sensor; the stops' faces the board bears on. Each fillet is cut back `fillet_clear` (`part_fit`) from
+the cover's walls, the plate's bump and the cover's bottom wall, and the cover's window, thinned USB-C wall
+and vents cut through the inside one. [Checking it](checking.md) has the setting that proves those
+cut-backs are there.
 
 **No fillet makes an overhang.** The back plate's widen down towards its bed, the cover's towards its front,
 which is its bed, and the fillets under the cover's top wall run straight up it.
