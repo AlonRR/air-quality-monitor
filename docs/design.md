@@ -112,3 +112,22 @@ cover's back edge — its top on the bed — so it needs no bridge at all.
 
 **No skirt, no brim, no draft shield.** Rounded corners in plan view (`corner_r`) keep ASA's corners
 down instead.
+
+## Fillets at the thin parts' roots
+
+**For strength, a concave fillet runs along the root of each thin part**, where it meets the face it stands
+on — `fillet_r`, 1 mm, about two beads, so a 0.9–1.35 mm part is roughly twice as thick where it bends.
+Only in 90° inside corners; outside edges stay as they are. On the back plate: the SPS30 channel's walls,
+the divider, the wire channel's ribs, the USB-C filler and the nut bosses. On the cover: the partition,
+the U's arms, and all round the inside where the walls meet the front — the walls already meet each other
+in a radius.
+
+**Some corners stay sharp because something fits against them**, and those are deliberate: the channel
+walls' inner faces, which the SPS30 stands 0.355 mm off; the lower wire rib's underside, `part_fit` over the
+sensor; the USB-C filler's outside face and its edges in the cover's slot; the divider's top, which carries
+the sensor. Each fillet is cut back `fillet_clear` (`part_fit`) from the cover's walls, the plate's bump
+and the cover's bottom wall, and the cover's window, thinned USB-C wall and vents cut through the inside
+one. [Checking it](checking.md) has the setting that proves those cut-backs are there.
+
+**No fillet makes an overhang.** The back plate's widen down towards its bed, the cover's towards its front,
+which is its bed, and the fillets under the cover's top wall run straight up it.

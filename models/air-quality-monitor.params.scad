@@ -106,6 +106,7 @@ front_t   = 1.8;    /* The cover's front, printed flat on the bed: 9 layers. */
 cradle_t  = 1.35;   /* The walls of the channel the SPS30 slides into: 3 beads. */
 rib_t     = 1.35;   /* The cover's internal ribs: 3 beads. */
 rim_t     = 0.9;    /* The rims that locate the two boards: 2 beads. */
+fillet_r  = 1.0;    /* The concave fillet at the root of each thin feature, where it meets the face it stands on: about 2 beads, so a 0.9-1.35 mm feature's root is roughly twice as thick. For strength - Alon, 4 Oct 2026: "only where there is a 90 angle", on the thin parts. */
 port_wall = 0.9;    /* The cover's wall where the board's USB-C end meets it, thinned from inside so the socket's mouth reaches the outside face: 2 beads. With the 1.5 mm overhang this is as thick as it can be. */
 
 /* [Airflow] */

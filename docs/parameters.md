@@ -113,6 +113,7 @@ thicknesses whole layers of `fdm_layer_h`, and the model asserts both.
 |---|---|---|
 | `wall`, `back_t`, `front_t` | **1.8**, **2.4**, **1.8** | the cover's side, top and bottom walls (4 beads); the back plate (12 layers), which the wall screws' heads bear on; the cover's front (9 layers) |
 | `cradle_t`, `rib_t` | **1.35** | the SPS30 channel's walls, and the cover's ribs and the clips' lower jaws: 3 beads |
+| `fillet_r` | **1.0** | the concave fillet at each thin part's root, where it meets the face it stands on: about 2 beads, so a 0.9–1.35 mm part is roughly twice as thick where it bends. See [Design](design.md#fillets-at-the-thin-parts-roots) |
 | `rim_t`, `port_wall` | **0.9** | rims, jaws and stops: 2 beads. `port_wall` is the cover's wall thinned over the board's USB-C end, as thick as the shell's 1.5 mm overhang allows |
 | `ledge` | **1.0** | how far the ledges reach under each end of the SPS30's air face, clear of its openings |
 | `divider_clear` | **0.5** | the least room between the divider and the openings either side of it. The divider is derived: the gap round `divider_from_inlet_end`, less this each side, in whole beads — 4.05 mm, 0.555 clear of each. It covers the sensor's tolerance on where its openings are, and its float in the channel |

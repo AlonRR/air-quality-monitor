@@ -348,6 +348,26 @@ module cyl_x(y, z, r, x0, x1) {
     translate([x0, y, z]) rotate([0, 90, 0]) cylinder(r = r, h = x1 - x0);
 }
 
+// ------------------------------------------------------------------ fillets
+// Concave fillets at the roots of the thin features, for strength - only in 90-degree inside corners. Each
+// is cut back fillet_clear from whatever it must not touch: the cover's walls, the plate's bump, and the
+// cover's bottom wall beside the window. One value, so one setting breaks them all (docs/checking.md).
+fillet_clear = part_fit;
+// The cove in its own frame: the face it stands on along +X, the feature up +Y, radius r. It reaches eps
+// past both, into the face and the feature, so it joins them by a face rather than an edge.
+module cove2d(r) difference() {
+    translate([-eps, -eps]) square([r + eps, r + eps]);
+    translate([r, r]) circle(r = r, $fn = 32);
+}
+// A cove along a straight root: p on the root edge, u along the face away from the feature, v up the
+// feature, w along the edge for len.
+module fillet_line(p, u, v, w, len, r = fillet_r)
+    multmatrix([[u[0], v[0], w[0], p[0]], [u[1], v[1], w[1], p[1]], [u[2], v[2], w[2], p[2]], [0, 0, 0, 1]])
+        linear_extrude(height = len) cove2d(r);
+// A cove round a cylinder along Y standing on the face Y = y0.
+module fillet_ring_y(x, z, rc, y0, r = fillet_r)
+    translate([x, y0, z]) rotate([-90, 0, 0]) rotate_extrude($fn = 64) translate([rc, 0]) cove2d(r);
+
 // Slots through a face, spread across [a0, a1] - in the cover's front (X), or its side wall (Z).
 module vent_slots(x0, x1, z0, z1) {
     n     = floor((x1 - x0 + vent_rib) / (vent_w + vent_rib));
@@ -479,6 +499,8 @@ module back_plate() place() difference() {
         for (x = nut_bx) cyl_y(x, nut_bz, nut_boss_d / 2, back_t - eps, nut_boss_y1);
         // the bump at the top the cover locates on
         box3([bump_x0, back_t - eps, u_z0], [bump_x1, back_t + bump_out, bump_z1]);
+        // fillets at the thin features' roots
+        plate_fillets();
     }
     // the nuts' pockets, open to the wall, and the screw holes over them
     for (x = nut_bx) nut_trap(x, nut_bz);
@@ -495,9 +517,16 @@ module back_plate() place() difference() {
 // =================================================================== the cover, as installed
 module cover() place() {
     difference() {
-        slab_xz(0, W, back_t, D, 0, H, corner_r);
-        // hollow it: four walls and a front
-        slab_xz(wall, W - wall, back_t - eps, y_in1, wall, H - wall, max(corner_r - wall, 0));
+        union() {
+            difference() {
+                slab_xz(0, W, back_t, D, 0, H, corner_r);
+                // hollow it: four walls and a front
+                slab_xz(wall, W - wall, back_t - eps, y_in1, wall, H - wall, max(corner_r - wall, 0));
+            }
+            // the cove all round the inside, where the walls meet the front. The walls meet each other in
+            // corner_r - wall already.
+            inner_cove();
+        }
         // the window over the SPS30's air face - open at the back edge, so it is a notch, not a bridge
         translate([ch_x0 - cradle_t - part_fit, back_t - eps, -eps])
             cube([ch_in_w + 2 * (cradle_t + part_fit), y_in1 - back_t + eps, wall + 2 * eps]);
@@ -552,6 +581,72 @@ module cover() place() {
          [sm_lip_x1, y_in1 + eps, zu + sm_pcb_t + 2 * pocket_fit + rim_t]);
     box3([sm_lip_x0, y_b1 - clasp_low, z_f0], [sm_lip_x1, y_in1 + eps, zu - pocket_fit]);
     box3([stop_x0, y_b1 - stop_reach, z_f0], [stop_x0 + rim_t, y_in1 + eps, zu + sm_pcb_t + 1]);
+    // fillets at the roots of the U's arms and the partition
+    cover_fillets();
+}
+
+// =================================================================== fillets, at the thin features' roots
+// The back plate's, at the plate's front face (Y = back_t). On its bed the plate lies on its back, so each
+// widens down towards the bed: no overhang.
+module plate_fillets() {
+    // the SPS30 channel's walls, on their outer faces only: inside, the sensor stands 0.355 off them on the
+    // plate. From above the cover's bottom wall, which reaches to fillet_clear beside them under the window.
+    zw = wall + fillet_clear;
+    fillet_line([ch_x0 - cradle_t, back_t, zw], [-1, 0, 0], [0, 1, 0], [0, 0, 1], z_sps1 - zw);
+    fillet_line([ch_x1 + cradle_t, back_t, zw], [1, 0, 0], [0, 1, 0], [0, 0, 1], z_sps1 - zw);
+    // the divider, on both sides: its top carries the sensor, its bottom is the box's bottom edge
+    for (k = [-1, 1])
+        fillet_line([x_div + k * divider_t / 2, back_t, 0], [k, 0, 0], [0, 1, 0], [0, 0, 1], z_sps0);
+    // the SGP41 wires' channel: both sides of the slot, and over the top rib - not under the lower rib,
+    // which is part_fit over the SPS30
+    for (f = [[gy_ch_zc - gy_ch_slot / 2, 1], [gy_ch_zc + gy_ch_slot / 2, -1], [gy_ch_zc + gy_ch_slot / 2 + rib_t, 1]])
+        fillet_line([gy_ch_x0, back_t, f[0]], [0, 0, f[1]], [0, 1, 0], [1, 0, 0], gy_ch_x1 - gy_ch_x0);
+    // the USB-C filler, on its inner face: its outer face is the box's outside, and its top and bottom
+    // stand in the cover's slot
+    fillet_line([port_wall, back_t, z_uc - usb_fill_h], [1, 0, 0], [0, 1, 0], [0, 0, 1], 2 * usb_fill_h);
+    // round the nut bosses, cut back from the cover's walls, which they stand part_fit inside
+    for (x = nut_bx) intersection() {
+        fillet_ring_y(x, nut_bz, nut_boss_d / 2, back_t);
+        box3([wall + fillet_clear, back_t - eps, wall + fillet_clear],
+             [W - wall - fillet_clear, back_t + fillet_r + eps, H - wall - fillet_clear]);
+    }
+}
+
+// The cover's, at its front's inside face (Y = y_in1) and, for the U, under the top wall. The cover prints
+// front face down, so these widen towards the bed or run up it: no overhang.
+module cover_fillets() {
+    // the U's arms: both sides, at the front and under the top wall - cut back from the plate's bump
+    // between them
+    difference() {
+        for (xa = [bump_x0 - part_fit - rib_t, bump_x1 + part_fit]) for (k = [0, 1]) {
+            xf = xa + k * rib_t;
+            s = 2 * k - 1;
+            fillet_line([xf, y_in1, u_z0], [s, 0, 0], [0, -1, 0], [0, 0, 1], H - wall - u_z0);
+            fillet_line([xf, back_t + part_fit, H - wall], [s, 0, 0], [0, 0, -1], [0, 1, 0], y_in1 - back_t - part_fit);
+        }
+        box3([bump_x0 - fillet_clear, back_t - eps, u_z0 - fillet_clear],
+             [bump_x1 + fillet_clear, back_t + bump_out + fillet_clear, H]);
+    }
+    // the partition, both sides, at the front
+    for (k = [-1, 1])
+        fillet_line([x_div + k * rib_t / 2, y_in1, z_sps0 + part_fit], [k, 0, 0], [0, -1, 0], [0, 0, 1], sps_h - part_fit);
+}
+
+// The cove where the cover's walls meet its front, inside, all the way round: slices fillet_r / 10 thick,
+// each the inner outline less its inset at that depth, so the inset follows the corners' curves exactly.
+module inner_cove(n = 10) {
+    rc = max(corner_r - wall, 0);
+    for (i = [0 : n - 1]) {
+        s0 = i * fillet_r / n;
+        sm = s0 + fillet_r / (2 * n);
+        w  = fillet_r - sqrt(fillet_r * fillet_r - (fillet_r - sm) * (fillet_r - sm));
+        top = (i == 0) ? eps : 0;
+        translate([0, y_in1 - s0 + top, 0]) rotate([90, 0, 0]) linear_extrude(height = fillet_r / n + top)
+            difference() {
+                offset(delta = eps) translate([wall, wall]) rrect(W - 2 * wall, H - 2 * wall, rc);
+                offset(r = -w) translate([wall, wall]) rrect(W - 2 * wall, H - 2 * wall, rc);
+            }
+    }
 }
 
 // =================================================================== the cover's way on

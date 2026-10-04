@@ -43,6 +43,9 @@ As you face the box with the cover off:
 14. **USB-C filler** — stands in the cover's USB-C slot behind the socket, and closes the wall there once
     the cover is on. Its end is hollowed round the socket's.
 
+The channel walls (3), divider (5), nut bosses (11), wire channel (13) and filler (14) have a 1 mm fillet
+at their roots, for strength — see [Design](design.md#fillets-at-the-thin-parts-roots).
+
 More on 8–10 in [The SGP41's mount](sgp41-mount.md), and on 6 and 7 in [The USB-C end](usb-c-end.md).
 
 ## The cover
@@ -78,3 +81,6 @@ Seen from inside — from the wall — so its left and right are swapped against
     brim.
 13. **U** — two arms hanging from the top wall, either side of the plate's bump. They locate the cover's
     top; the two bottom screws hold the cover on.
+
+The partition (8), the U's arms (13), and the walls all round where they meet the front have a 1 mm fillet
+at their roots, for strength.
