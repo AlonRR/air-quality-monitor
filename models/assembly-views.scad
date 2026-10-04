@@ -41,9 +41,9 @@ detail = false;  // the open view without its table, the arrows moved in: for a 
 
 // ------------------------------------------------------------------ the parts, as drawn here
 module sps30() {
-    color("silver") box3([sps_x0, back_t, z_sps0], [sps_x1, back_t + sps_t, z_sps1]);
+    color("silver") box3([sps_x0, y_sps0, z_sps0], [sps_x1, y_sps1, z_sps1]);
     // its plug, on the connector face at the outlet end
-    color([0.15, 0.15, 0.15]) box3([lead_x0, back_t + sps_t / 2 - 2.5, z_sps1], [lead_x1, back_t + sps_t / 2 + 2.5, z_sps1 + 3.5]);
+    color([0.15, 0.15, 0.15]) box3([lead_x0, y_plug - 2.5, z_sps1], [lead_x1, y_plug + 2.5, z_sps1 + 3.5]);
 }
 module supermini() for (i = [0 : 4]) sm_piece(i, 0);
 
@@ -119,7 +119,7 @@ zl = zu - wd / 2;             // a lead wire doing the same
 // two for the back pads a wire higher - so each passes over the risers and the turns of the others. The
 // back two run over the wall screw's head and under the SGP41's wires to the same pads, and come up beside
 // them at the end.
-y_plug  = back_t + sps_t / 2;
+y_plug  = y_sps0 + sps_t / 2;
 z_plug  = z_sps1 + 3.5 + wd / 2;               // just out of the plug's top
 function lead_x(d) = sps_x0 + d;               // d from the outlet end
 z_front = z_sps1 + cable_zone_h - 2.4;         // the front-bound lead wires' height
@@ -202,7 +202,7 @@ module wires(s = 0, fn = 10) {
 // it - and its screw's head, and the wall screws' heads as they slide up their keyholes. The antenna is
 // held off by ant_clear above, and the air gap in front of the sensor by the baffle the cover closes it with.
 module obstacles() {
-    box3([sps_x0, back_t, z_sps0], [sps_x1, back_t + sps_t, z_sps1]);
+    box3([sps_x0, y_sps0, z_sps0], [sps_x1, y_sps1, z_sps1]);
     box3([lead_x0, y_plug - 2.5, z_sps1], [lead_x1, y_plug + 2.5, z_sps1 + 3.5]);
     for (i = [0 : 2]) sm_piece(i, 0);
     box3([gy_x0, gy_yu, gy_z0], [gy_x1, gy_yf + gy_sensor_h, gy_z1]);

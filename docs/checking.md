@@ -57,19 +57,19 @@ Each setting breaks one thing; the check, or an assert, must catch it. Measured 
 
 | Check | Setting | What it breaks | Measured |
 |---|---|---|---|
-| `check_parts` | `part_fit = -0.6` | the cover's features overlap the plate's | 235.2 mm³ |
+| `check_parts` | `part_fit = -0.6` | the cover's features overlap the plate's | 237.9 mm³ |
 | `check_parts` | `bump_z1 = 75` | the bump at the top into the cover's top wall | 14.4 mm³ |
 | `check_parts` | `nut_boss_y1 = 21.5` | the nut bosses run into the cover's screw bosses | 190.5 mm³ |
-| `check_components` | `z_f0 = 50` | the board lowered into the column the SPS30's lead rises through | 24.3 mm³ |
+| `check_components` | `z_f0 = 50` | the board lowered into the column the SPS30's lead rises through | 8.8 mm³ |
 | `check_components` | `gy_post_y1 = 18.4` | the SGP41's post pushed up into the module | 6.2 mm³ |
 | `check_components` | `gy_standoff_d = 5.6` | the post's top wider than the bare ring round the module's hole | 1.9 mm³ |
-| `check_components` | `key_xs = [6.25, 57]` | the left keyhole moved under the SPS30's channel wall: its screw head runs into it | 62.6 mm³ |
+| `check_components` | `key_xs = [6.25, 57]` | the left keyhole moved under the SPS30's channel wall: its screw head runs into it | 95.2 mm³ |
 | `check_components` | `clip_g_catch = 0.5` | the clips' catch pressing too far into the PCB | 0.61 mm³ |
 | `check_components` | `usb_open_r = 1.3` | the USB-C opening's round ends tighter than the shell's | 4.4 mm³ |
-| `check_components` | `gy_ch_zc = 44` | the SGP41 wires' channel lowered into the SPS30 | 68.8 mm³ |
+| `check_components` | `gy_ch_zc = 44` | the SGP41 wires' channel lowered into the SPS30 | 57.5 mm³ |
 | `check_slide` | `stop_x0 = 20` | the stops moved into the board's way in | 2.9 mm³ |
 | `check_slide` | `clip_g_mouth = 0.6` | the clips' mouth narrower than the PCB | 0.59 mm³ |
-| `check_insert` | `ch_x1 = 50` | the channel's wall moved into the SPS30's way in | 768 mm³ |
+| `check_insert` | `ch_x1 = 50` | the channel's wall moved into the SPS30's way in | 716 mm³ |
 | `check_cover_on` | `usb_notch_y0 = 6.5` | the cover's USB-C slot closed behind the socket again, as the first printed cover was | 11.5 mm³ |
 | `check_parts` | `usb_fill_h = 2.0` | the back plate's filler taller than the slot it stands in | 1.4 mm³ |
 | `check_parts` | `fillet_clear = -0.5` | the fillets no longer cut back from the cover's walls, the plate's bump and the cover's bottom wall | 0.66 mm³ |

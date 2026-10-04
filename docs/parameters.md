@@ -118,6 +118,7 @@ thicknesses whole layers of `fdm_layer_h`, and the model asserts both.
 | `ledge` | **1.0** | how far the ledges reach under each end of the SPS30's air face, clear of its openings |
 | `divider_clear` | **0.5** | the least room between the divider and the openings either side of it. The divider is derived: the gap round `divider_from_inlet_end`, less this each side, in whole beads — 4.05 mm, 0.555 clear of each. It covers the sensor's tolerance on where its openings are, and its float in the channel |
 | `divider_proud` | **0** | how far the divider stands below the box: 0 ends it flush with the bottom edge, where Sensirion's guide ends its separating wall |
+| `sps_lift` | **2.0** | how far the SPS30 stands off the plate, on its three ribs, so air rises behind it. The box's depth is set by the board, so this costs only air gap in front of the sensor. Its plug moves forward with it, towards the SGP41's wires in front of it: 2.0 leaves them 0.55 mm clear, 3.0 ran into them |
 | `front_gap_min` | **2.5** | the least air gap in front of the SPS30's label face — one inlet wraps round onto it |
 | `vent_w`, `vent_rib` | **2.0**, **1.8** | each vent slot, and the material between two |
 | `sm_lip_over` | **0.9** | how far the front clasp's lip reaches over the board's front pad strip; an assert keeps it under `sm_edge` |

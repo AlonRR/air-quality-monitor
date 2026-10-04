@@ -56,7 +56,7 @@ if (view == "back") {
     for (x = key_xs) marker(2, [x, back_t + f, key_z1 + 7.5]);                      // keyholes
     marker(3,  [ch_x0 - cradle_t / 2, y_ch1 + f, z_sps0 + 22]);                     // channel walls
     marker(3,  [ch_x1 + cradle_t / 2, y_ch1 + f, z_sps0 + 22]);
-    marker(4,  [ch_x0 + ledge_w / 2 + 2, back_t + sps_t + f, -3.5]);                // ledge
+    marker(4,  [ch_x0 + ledge_w / 2 + 2, y_sps1 + f, -3.5]);                        // ledge
     marker(5,  [x_div, y_in1 - part_fit + f, -divider_proud - 3.5]);                // divider
     for (c = clasp_xs) marker(6, [(c[0] + c[1]) / 2, y_b0 + clasp_low + f, z_f0 - 3.5]);   // the board's back clips
     marker(7,  [stop_x0 + rim_t / 2 + 3.5, y_b0 + stop_reach + f, zu + 4.5]);       // back stop
@@ -67,6 +67,7 @@ if (view == "back") {
     marker(12, [W / 2, back_t + bump_out + f, u_z0 - 3.5]);                         // the bump at the top
     marker(13, [(gy_ch_x0 + gy_ch_x1) / 2, gy_ch_y1 + f, gy_ch_zc + gy_ch_slot / 2 + rib_t + 3.5]);   // the SGP41 wires' channel
     marker(14, [port_wall / 2, y_bc - usb_open_c - usb_open_r + f, z_uc + usb_fill_h + 3.5]);   // the USB-C filler
+    marker(15, [x_div + 4, y_sps0 + f, z_sps1 - 8]);                                 // the SPS30's standoff ribs
     legend(["BACK PLATE - as you face the box, cover off",
             "",
             " 1  the plate - against the wall",
@@ -82,7 +83,8 @@ if (view == "back") {
             "11  nut bosses - an M3 nut pressed in from behind",
             "12  bump - the cover's top locates on it",
             "13  channel - holds the SGP41's wires",
-            "14  filler - closes the cover's USB-C slot"],
+            "14  filler - closes the cover's USB-C slot",
+            "15  standoff ribs - air rises behind the SPS30"],
            [-18, 0, H + 34]);
     axes([-22, 0, -25], 20, [78, 0, 195], [[0, 0], [1.7, -0.3], [0, 0]]);   // the box's own axes, as every figure carries
 }

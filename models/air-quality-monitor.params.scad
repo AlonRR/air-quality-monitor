@@ -112,6 +112,7 @@ port_wall = 0.9;    /* The cover's wall where the board's USB-C end meets it, th
 /* [Airflow] */
 divider_clear = 0.5;   /* Least room between the divider and the openings either side of it. The divider fills the blank gap between the inlets and the outlet grille round divider_from_inlet_end, less this each side, in whole beads. It covers the sensor's ISO 2768-m tolerance on the openings' positions and its sps_fit float in the channel. */
 divider_proud = 0.0;   /* How far the divider stands below the box. 0: it ends flush with the bottom edge. Sensirion's separating wall reaches the shell's opening and no further (mechanical design guide, section 2.1). */
+sps_lift      = 2.0;   /* How far the SPS30 stands off the plate, on three upright ribs, so air rises behind it from the window below and cools it. Alon, 4 Oct 2026: "the sps30 should be lifted of the back, for better air cooling". The box's depth is set by the board, so this costs only air gap in front of the sensor. The sensor's plug moves forward with it, towards the SGP41's wires, which pass just in front of the plug: 3.0 put the plug into them, 2.4 left 0.15 mm, 2.0 leaves 0.55. */
 front_gap_min = 2.5;   /* Least air gap in front of the SPS30's label face - one inlet wraps round onto that face. */
 vent_w        = 2.0;   /* Width of each vent slot. */
 vent_rib      = 1.8;   /* Material between vent slots: 4 beads. */

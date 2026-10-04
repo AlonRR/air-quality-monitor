@@ -21,7 +21,8 @@ All of this happens before the cover goes on.
    of the boss and tighten until it draws the nut up to its shoulder, then take the screw out. The pocket
    is a press fit, so the nut stays.
 2. **Set the SPS30 in from the front**, its lead plugged in, between its channel walls and onto its
-   ledges, label towards you and air face down. Nothing on the plate overhangs it.
+   ledges, label towards you and air face down, back against its three ribs. Nothing on the plate
+   overhangs it.
 3. **Push the SuperMini's back edge into its clips** from the front, component side up and its antenna's
    pole standing up, until the edge snaps past the clips' catches. The back edge is the one whose first two
    pins are GPIO5 and GPIO6; its antenna end goes against the back stop.

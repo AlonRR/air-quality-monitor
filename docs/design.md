@@ -78,6 +78,17 @@ wide and 0.55 mm clear of the openings either side, and ends flush with the box'
 own separating wall reaches the device's opening and stops there. It can be no wider: on the inlet side
 the gap ends at the slot along the label face's edge, which is the sensor's second inlet.
 
+**The SPS30 stands 2 mm off the plate, for cooling** (`sps_lift`). Three upright ribs hold its back off:
+one at each end, against the channel's walls, and one behind the divider. Air comes in through the window
+under the sensor, rises up the gap behind it and leaves into the compartment above, past the board and out
+through the board's vents. The middle rib splits that gap the way the divider splits the window, so the
+outlet's air rising behind the sensor stays on its own side until it is past the sensor's top. The box's depth is set by the
+SuperMini's width, not the sensor, so the lift costs only air gap in front of the sensor — 5.6 mm is left,
+against `front_gap_min`'s 2.5. What limits it is the sensor's plug, which moves forward with it: the
+SGP41's wires pass just in front of the plug, and 2 mm leaves them 0.55 mm clear, where 3 mm ran into them. The SGP41 overhangs only the channel's wall beside it, never the sensor, so
+the wall's notch for it may now reach past the sensor's back half: it still guides more than half the
+sensor's depth there, and the full depth elsewhere.
+
 **Every pin the node uses is among the first three at the board's USB-C end** — 5V, GND and 3V3 on its
 front edge, GPIO5 and GPIO6 on its back edge. So the clips start past the back edge's second pin and the
 clasp past the front edge's third, and nothing printed covers a pin that is soldered.

@@ -111,7 +111,8 @@ clasp_xs  = [[sm_usb_x + pin_mid + pin_pitch / 2 + 0.5, sm_usb_x + pin_mid + pin
 
 // =================================================================== derived: Y (out from the wall)
 ledge_w = sps_fit + sps_nub + ledge;                        // what each ledge spans, wall to sensor
-y_sps1  = back_t + sps_t;                                   // the SPS30's label face
+y_sps0  = back_t + sps_lift;                                // the SPS30's back, on its standoff ribs
+y_sps1  = y_sps0 + sps_t;                                   // the SPS30's label face
 y_b0    = back_t + pocket_fit;                              // the board's back long edge, by the plate
 // The clips' upper jaws, from the plate out: a relief where the edge sits, the catch, and the mouth. Each is a
 // gap over the PCB's underside.
@@ -123,7 +124,7 @@ clip_g_mouth = sm_pcb_t + 2 * pocket_fit + 0.4;             // at the tip, so th
 y_b1    = y_b0 + sm_w;                                      // its front long edge
 y_bc    = (y_b0 + y_b1) / 2;
 // The board's width now fills the depth: back edge by the plate, front edge in the cover's rim.
-inner_d = max(sps_t + sps_fit + front_gap_min, pocket_fit + sm_w + pocket_fit + rib_t);
+inner_d = max(sps_lift + sps_t + sps_fit + front_gap_min, pocket_fit + sm_w + pocket_fit + rib_t);
 D       = back_t + inner_d + front_t;
 y_in1   = D - front_t;                                      // inside face of the cover's front
 // The channel walls stand 2 * gap proud of the SPS30's face. It goes in from the front - nothing on
@@ -306,7 +307,12 @@ assert(gy_x1 + pocket_fit <= W - wall - part_fit + 1e-6, "the SGP41 lying flat d
 assert(gy_post_y1 - gy_pilot_depth >= back_t + 2 * fdm_layer_h,
        str("the SGP41's pilot would run out of the post into the wall side of the plate - shorten gy_screw_l"));
 assert(gy_yp - ch_notch >= gap - 1e-6, "the SGP41's underside parts come within a gap of the SPS30's channel wall");
-assert(ch_notch >= y_sps1 + sps_fit + 2 * fdm_layer_h, "the channel wall's notch reaches the SPS30's face");
+// The SGP41 overhangs the channel's wall, never the sensor (gy_x0 is past sps_x1), so the wall may be
+// notched beside the sensor's front - as long as it still guides most of its depth.
+assert(ch_notch >= y_sps0 + sps_t / 2,
+       str("the channel's wall by the SGP41 is notched from ", ch_notch, " mm: it must still guide the SPS30 to",
+           " at least half its depth, ", y_sps0 + sps_t / 2));
+assert(gy_x0 > sps_x1 + sps_nub, "the SGP41 overhangs the SPS30 itself, not just its channel's wall");
 assert(gy_z0 - pocket_fit - rim_t >= nut_bz + nut_boss_d / 2 + part_fit - 1e-6,
        "the SGP41's ledge comes down onto the nut bosses");
 assert(gy_hole_d >= gy_screw_d + 0.1,
@@ -471,8 +477,14 @@ module back_plate() place() difference() {
         }
 
         // the ledges the sensor stands on, one under each end of the air face
-        translate([ch_x0 - cradle_t / 2, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, sps_t + eps, z_sps0]);
-        translate([ch_x1 - ledge_w, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, sps_t + eps, z_sps0]);
+        translate([ch_x0 - cradle_t / 2, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, y_sps1 - back_t + eps, z_sps0]);
+        translate([ch_x1 - ledge_w, back_t - eps, 0]) cube([ledge_w + cradle_t / 2, y_sps1 - back_t + eps, z_sps0]);
+        // the ribs the sensor stands on, sps_lift off the plate, so air rises behind it from the window: one
+        // at each end of its back, against the channel's walls, and one behind the divider, which keeps the
+        // outlet's side of that gap apart from the inlets'
+        for (r = [[ch_x0 - eps, sps_x0 + cradle_t], [sps_x1 - cradle_t, ch_x1 + eps],
+                  [x_div - cradle_t / 2, x_div + cradle_t / 2]])
+            box3([r[0], back_t - eps, 0], [r[1], y_sps0, z_sps1]);
 
         // the divider: a wall that also carries the middle of the sensor, through the window to the box's
         // bottom edge - divider_proud past it. It rises from the very back (Y = 0), so it starts on the bed.
@@ -659,7 +671,7 @@ module cover_on_path(s = 0.02) place() {
     for (i = [0, 2, 3, 4]) hull() { sm_piece(i, s); translate([0, -D, 0]) sm_piece(i, s); }
     for (b = parts_boxes(s)) hull() { box3(b[0], b[1]); translate([0, -D, 0]) box3(b[0], b[1]); }
     hull() for (dy = [0, -D]) translate([0, dy, 0])
-        box3([sps_x0 + s, back_t + s, z_sps0 + s], [sps_x1 - s, back_t + sps_t - s, z_sps1 - s]);
+        box3([sps_x0 + s, y_sps0 + s, z_sps0 + s], [sps_x1 - s, y_sps1 - s, z_sps1 - s]);
     hull() for (dy = [0, -D]) translate([0, dy, 0])
         box3([gy_x0 + s, gy_yp + s, gy_z0 + s], [gy_x1 - s, gy_yf + gy_sensor_h - s, gy_z1 - s]);
     hull() for (dy = [0, -D]) translate([0, dy, 0]) cyl_y(gy_hx, gy_hz, gy_head_d / 2 - s, gy_yf + s, gy_yf + gy_head_h - s);
@@ -669,8 +681,8 @@ module cover_on_path(s = 0.02) place() {
 // The sensor goes in from the front, before the cover: its outline, nubs included, swept from its seat to
 // the cover's front. Nothing on the back plate may stand in it - check_insert intersects the two.
 module sps_insert_path() place()
-    translate([sps_x0 - sps_nub, back_t + 0.02, z_sps0 + 0.02])
-        cube([sps_w + 2 * sps_nub, y_in1 - back_t, sps_h - 0.04]);
+    translate([sps_x0 - sps_nub, y_sps0 + 0.02, z_sps0 + 0.02])
+        cube([sps_w + 2 * sps_nub, y_in1 - y_sps0, sps_h - 0.04]);
 
 // =================================================================== the SuperMini, piece by piece
 // Its parts' envelope as boxes: full depth between and beside the back clips, and where a clip is, only
@@ -709,7 +721,7 @@ module sm_slide_path(s = 0.02) place() {
 // =================================================================== the components, for preview and checks
 module components(shrink = 0) place() {
     s = shrink;
-    color("silver") box3([sps_x0 + s, back_t + s, z_sps0 + s], [sps_x1 - s, back_t + sps_t - s, z_sps1 - s]);
+    color("silver") box3([sps_x0 + s, y_sps0 + s, z_sps0 + s], [sps_x1 - s, y_sps1 - s, z_sps1 - s]);
     for (i = [0 : 4]) sm_piece(i, s);   // the SuperMini
     // the body of the largest compliant plug, seated, with the board pushed against its stops. Its
     // face can come right up to the socket's mouth, so that is where it is drawn.
@@ -728,7 +740,7 @@ module components(shrink = 0) place() {
     // the SGP41 screw's head, between the module and the cover
     color("silver") cyl_y(gy_hx, gy_hz, gy_head_d / 2 - s, gy_yf + s, gy_yf + gy_head_h - s);
     // the SPS30's plug and the column its lead rises through before it bends over
-    color("orange") box3([lead_x0 + s, back_t + s, z_sps1 + s], [lead_x1 - s, back_t + sps_t - s, z_sps1 + cable_zone_h - s]);
+    color("orange") box3([lead_x0 + s, y_sps0 + s, z_sps1 + s], [lead_x1 - s, y_sps1 - s, z_sps1 + cable_zone_h - s]);
     // the wall screws' heads behind the plate, each all the way from its entry up to where it hangs,
     // standing off the wall by up to key_slack more than the plate is thick
     for (x = key_xs) color("silver") hull() for (z = [key_z0, key_z1])

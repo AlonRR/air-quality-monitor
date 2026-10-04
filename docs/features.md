@@ -42,6 +42,9 @@ As you face the box with the cover off:
     in it, where they turn out of the module's column over the sensor.
 14. **USB-C filler** — stands in the cover's USB-C slot behind the socket, and closes the wall there once
     the cover is on. Its end is hollowed round the socket's.
+15. **Standoff ribs** — three upright ribs the SPS30 stands on, 2 mm off the plate, so air rises behind it
+    from the window and cools it: one at each end of its back, against the channel's walls, and one behind
+    the divider, which keeps the outlet's side of that gap apart from the inlets'.
 
 The channel walls (3), divider (5), nut bosses (11), wire channel (13) and filler (14) have a 1 mm fillet
 at their roots, for strength — see [Design](design.md#fillets-at-the-thin-parts-roots).
