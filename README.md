@@ -1,8 +1,12 @@
 # Air-quality monitor
 
-An ESPHome node that measures the air around a 3D printer — particles with a Sensirion SPS30, VOC and NOx
-with a GY-SGP41, on an ESP32-C3 SuperMini — and the printed box it lives in. The box hangs on a wall by two
-screws, outside the printer's enclosure, upright, with the SPS30's air face down. Two parts in ASA,
+An ESPHome air-quality monitor — particles with a Sensirion SPS30, VOC and NOx with a GY-SGP41, on an
+ESP32-C3 SuperMini — and the printed box it lives in. It watches the air wherever something puts particles
+or gases into it: 3D printing, soldering, laser cutting, resin work, sanding, cooking. Its first job is
+beside a 3D printer's enclosure, and that is where the design pages measure it, but nothing in the box
+assumes a printer.
+
+The box hangs on a wall by two screws, upright, with the SPS30's air face down. Two parts in ASA,
 68.7 × 76.4 × 24 mm: a back plate, and a cover whose top locates on a bump in a U and whose bottom corners
 are screwed into nuts, the screws' heads flush in its front.
 
@@ -75,7 +79,7 @@ opening is a hole in the first layers or a notch open at an edge.
 | [`models/fits-map.scad`](models/fits-map.scad) | the lettered picture of the clearance test |
 | [`models/sps30-measure.scad`](models/sps30-measure.scad), [`models/board-measure.scad`](models/board-measure.scad) | the readings taken on the SPS30, the SuperMini and the GY-SGP41 |
 | [`models/lib/axes.scad`](models/lib/axes.scad) | the x, y and z arrows every picture carries |
-| [`firmware/`](firmware/) | the node's ESPHome configuration, with its wiring table, and the secrets template |
+| [`firmware/`](firmware/) | the node's ESPHome configuration, with its wiring table, and the secrets template. It is `print-chamber.yaml`, named for its first job: Home Assistant keys the history it records to that name |
 | [`scripts/scad-check.sh`](scripts/scad-check.sh) | renders a part, checks the mesh, slices it, and cross-checks the model against the profile |
 
 ## Licence
