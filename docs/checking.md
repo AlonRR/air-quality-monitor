@@ -57,7 +57,7 @@ Each setting breaks one thing; the check, or an assert, must catch it. Measured 
 
 | Check | Setting | What it breaks | Measured |
 |---|---|---|---|
-| `check_parts` | `part_fit = -0.6` | the cover's features overlap the plate's | 230.0 mm³ |
+| `check_parts` | `part_fit = -0.6` | the cover's features overlap the plate's | 230.5 mm³ |
 | `check_parts` | `bump_z1 = 75` | the bump at the top into the cover's top wall | 14.4 mm³ |
 | `check_parts` | `nut_boss_y1 = 21.5` | the nut bosses run into the cover's screw bosses | 190.5 mm³ |
 | `check_components` | `z_f0 = 50` | the board lowered into the column the SPS30's lead rises through | 24.3 mm³ |

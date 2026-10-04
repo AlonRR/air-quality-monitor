@@ -29,9 +29,9 @@ sps_t    = 12.2;   /* Thickness (Y). 12.2 +/- 0.3. */
 sps_nub  = 0.155;  /* Each side: the plastic nubs on the side faces. Measured 41.00 across them on 3 Oct 2026 (Alon; docs/sps30-measure.png, A), so (41.00 - 40.69) / 2. The datasheet's 41.2 across left the clearance test's frame A about 0.7 mm loose in X. */
 
 /* [Measured from the parts in hand - `unmeasured` below lists what is still a placeholder] */
-divider_from_inlet_end = 17.7;   /* Along the air face, from the INLET end to the middle of the gap between the inlets and the outlet grille. From photo 3, 2 Oct 2026, scaled against the sensor's 40.6 mm width: three features land within 0.4 mm of the datasheet, so the scale holds. */
-sps_inlet_end   = 15.2;          /* Where the inlets END, from the inlet end - the one that wraps onto the label face reaches furthest. Datasheet Figure 7; photo 3 reads 14.9. */
-sps_outlet_from = 20.2;          /* Where the outlet grille STARTS, from the inlet end. Photo 3. The divider must sit between these two. */
+divider_from_inlet_end = 17.8;   /* Along the air face, from the INLET end to the middle of the gap between the inlets and the outlet grille: halfway between the two below. */
+sps_inlet_end   = 15.22;         /* Where the inlets END, from the inlet end - the slot along the label face's edge reaches furthest. Measured 4 Oct 2026 (Alon, calipers): it starts 5.20 from the end and is 10.02 long. Datasheet Figure 7: 5.2 + 10. */
+sps_outlet_from = 20.38;         /* Where the outlet grille STARTS, from the inlet end. Measured 4 Oct 2026 (Alon, calipers); the datasheet's 20.2 was 0.18 short. The divider must sit between these two. */
 outlet_at_left = false;          /* SETTLED from photos, 2 Oct 2026: facing the box, label towards you, air face down, the outlet grille is on your RIGHT and the two inlets on your left. The connector is at the outlet end (datasheet Figure 7, and the photos agree). */
 sm_l         = 22.8;   /* SuperMini PCB length, not counting the USB-C shell that overhangs it. Measured 2 Oct 2026. */
 sm_w         = 18.03;  /* SuperMini width. Measured. */

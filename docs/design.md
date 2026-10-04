@@ -73,8 +73,8 @@ As you face the box, cover off:
 
 **One large window, one divider.** The window is a single opening over the whole air face, split by a
 single divider. The box does not have to line up with each grille; it only has to put the divider in
-the blank gap between the two ends, which is one number to measure. The divider fills that gap, 3.6 mm
-wide and 0.7 mm clear of the openings either side, and ends flush with the box's bottom edge — Sensirion's
+the blank gap between the two ends, which is one number to measure. The divider fills that gap, 4.05 mm
+wide and 0.55 mm clear of the openings either side, and ends flush with the box's bottom edge — Sensirion's
 own separating wall reaches the device's opening and stops there. It can be no wider: on the inlet side
 the gap ends at the slot along the label face's edge, which is the sensor's second inlet.
 
