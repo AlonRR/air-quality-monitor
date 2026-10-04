@@ -1,0 +1,18 @@
+version = 1
+
+# Documentation, figures and repository metadata: the files that cannot carry a header of their own,
+# or where a comment line would be read as content. The .scad sources, the script and the firmware
+# carry SPDX headers instead.
+[[annotations]]
+path = [
+  "README.md",
+  "**/README.md",
+  "models/**/docs/**",
+  "PROJECT.yml",
+  ".gitignore",
+  ".gitattributes",
+  "firmware/.gitignore",
+  "REUSE.toml",
+]
+SPDX-FileCopyrightText = "2026 Alon A. Rabinowitz"
+SPDX-License-Identifier = "CC-BY-4.0"

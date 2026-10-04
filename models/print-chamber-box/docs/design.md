@@ -21,14 +21,14 @@ this repository. This page lists them, then shows the layout they add up to.
 From this repository:
 
 - **The box sits outside the printer's enclosure.** The SGP41 is rated −10 to +50 °C and the SPS30 to
-  +60 °C, against a chamber wanted at 40–60 °C ([chamber-sensor §3](../../../docs/chamber-sensor/node-design.md#the-node-goes-outside-the-enclosure-3)).
+  +60 °C, against a chamber wanted at 40–60 °C ([chamber-sensor §3](https://github.com/AlonRR/3d-printing-toolkit/blob/main/docs/chamber-sensor/node-design.md#the-node-goes-outside-the-enclosure-3)).
   What those ratings mean is below.
 - **A second box inside the chamber is possible, not decided** (Alon, 3 Oct 2026). There are two of
   each sensor, and it would pair with the chamber's air filter — measuring the chamber air out of the
   filter's draught, not built into its air path. Alon does not want to risk the sensors, so it waits
   on more thinking; this box, outside, is built first.
 - **The SuperMini carries a 31 mm antenna-wire mod**, whose last 15 mm stand straight up from the
-  board ([chamber-sensor §3x](../../../docs/chamber-sensor/supermini-antenna.md#rescuing-them-the-31-mm-wire-mod-3x)). It needs free space in plastic, away
+  board ([chamber-sensor §3x](https://github.com/AlonRR/3d-printing-toolkit/blob/main/docs/chamber-sensor/supermini-antenna.md#rescuing-them-the-31-mm-wire-mod-3x)). It needs free space in plastic, away
   from the SPS30's grounded metal case.
 
 ### Past the ratings
@@ -42,7 +42,7 @@ its limit: past it, accuracy goes first, then the part.
 | **SPS30** | 10 to 40 °C | 60 °C, the absolute operating maximum | beyond 60 °C, permanent damage is possible and operation is not guaranteed. The datasheet names a laser failure at very high temperatures, which the sensor flags in its status register. Its precision also drifts by typically 0.5 % of the reading per °C away from 25 °C |
 
 Against the closed chamber — 45–46 °C through an ASA print, 47.5 °C at the peak of a bed anneal
-([measurements](../../../docs/chamber-sensor/measurements.md#closed-every-print-since-19-sep-2026)) —
+([measurements](https://github.com/AlonRR/3d-printing-toolkit/blob/main/docs/chamber-sensor/measurements.md#closed-every-print-since-19-sep-2026)) —
 the SPS30 is already above its best range, and the SGP41 is 2.5–5 °C below its 50 °C, before the box's
 own heat, which is not measured. Heating the chamber towards 60 °C would take both past their ratings.
 

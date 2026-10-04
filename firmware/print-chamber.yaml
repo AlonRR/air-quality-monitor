@@ -3,6 +3,9 @@
 
 # print-chamber — the planned printer chamber node, on an ESP32-C3 SuperMini.
 #
+# The docs/ pages and the other .yaml files these comments name are in the 3D-printing toolkit this
+# repository was split from: https://github.com/AlonRR/3d-printing-toolkit
+#
 # Today it carries particulate (SPS30) and VOC/NOx (SGP41). The chamber's own sensor and the
 # fume-fan control join it later on the pins already reserved for them (GPIO10 fan PWM, GPIO3
 # tach - see the i2c block). GPIO7 was kept for 1-Wire bay and room probes, which are not
@@ -45,7 +48,7 @@
 #    "Firmware not found", and then prints "INFO Successfully compiled program." with exit 0.
 #    Measured twice on 1 Oct 2026, with and without MSYSTEM unset. A real build leaves
 #    .esphome/build/print-chamber/build/print-chamber.bin of roughly 1 MB - check for it.
-#        cd $env:USERPROFILE\Tools\3d-printing\firmware
+#        cd firmware          # from the repository's root
 #        esphome compile print-chamber.yaml
 #
 # ------------------------------------------------------------------------------ WIRING

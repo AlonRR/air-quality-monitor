@@ -1,0 +1,15 @@
+# Rendered and sliced output: build products, made again from the .scad sources whenever needed.
+*.stl
+*.3mf
+*.gcode
+
+# OpenSCAD Customizer parameter sets. The GUI writes them by itself, and they become a second source of
+# truth that only the GUI reads. The .scad files are the source of truth.
+*.json
+
+# Vendor datasheets and other third-party documents are someone else's copyright: extract the data into
+# Markdown and link where the original came from instead.
+*.pdf
+*.PDF
+
+__pycache__/

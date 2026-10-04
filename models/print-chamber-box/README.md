@@ -23,6 +23,8 @@ its back, so on the bed its y is up.
 **Modelled, checked, and every fit tested — ready to print.** Three rounds of the
 [clearance test](docs/clearance-test.md) tried every fit in ASA on this printer, the last on 4 Oct 2026;
 `untested_fits` and `unmeasured` are both empty, so `scad-check.sh` passes the back plate and the cover.
+The USB-C slot in the cover's side wall and the flush divider under the SPS30 changed after the last
+printed box: both are checked in the model, and not printed yet.
 
 ## Building it
 
