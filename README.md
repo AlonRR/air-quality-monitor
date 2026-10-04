@@ -23,8 +23,7 @@ its back, so on the bed its y is up.
 
 ## Status
 
-**The box is modelled, checked, and every fit in it tested.** Three rounds of the
-[clearance test](docs/clearance-test.md) tried every fit in ASA on the printer; `untested_fits` and
+**The box is modelled, checked, and every fit in it tested** in ASA on the printer; `untested_fits` and
 `unmeasured` are both empty, so `scad-check.sh` passes the back plate and the cover. The USB-C slot in the
 cover's side wall and the flush divider under the SPS30 changed after the last printed box: both are checked
 in the model, and not printed yet. **The firmware's** configuration is valid and has compiled; it is not
@@ -32,10 +31,9 @@ flashed yet.
 
 ## Building it
 
-1. **[Print the clearance test](docs/clearance-test.md)** and set the fits it finds.
-2. **Print the two parts** — see *Printing* below.
-3. **[Assemble it](docs/assembly.md)**, then **[wire it](docs/wiring.md)**.
-4. **Flash the firmware**: copy `firmware/secrets.yaml.example` to `firmware/secrets.yaml`, which is
+1. **Print the two parts** — see *Printing* below.
+2. **[Assemble it](docs/assembly.md)**, then **[wire it](docs/wiring.md)**.
+3. **Flash the firmware**: copy `firmware/secrets.yaml.example` to `firmware/secrets.yaml`, which is
    gitignored, fill it in, and build [`firmware/print-chamber.yaml`](firmware/print-chamber.yaml) — its
    header says how.
 
@@ -43,7 +41,6 @@ flashed yet.
 |---|---|---|
 | Back plate | [`models/air-quality-monitor-back.scad`](models/air-quality-monitor-back.scad) | flat on its back |
 | Cover | [`models/air-quality-monitor-cover.scad`](models/air-quality-monitor-cover.scad) | front face down |
-| Clearance test | [`models/air-quality-monitor-fits.scad`](models/air-quality-monitor-fits.scad) | flat |
 
 **Hardware:** two M3 × 20 socket head cap screws and two M3 nuts for the cover, one M2.5 × 6 socket head cap
 screw for the SGP41, two 4 × 20 chipboard screws and their wall plugs to hang it, and 22 AWG solid hookup
@@ -73,11 +70,10 @@ opening is a hole in the first layers or a notch open at an edge.
 | [`docs/`](docs/) | the pages above and their pictures |
 | [`models/air-quality-monitor.params.scad`](models/air-quality-monitor.params.scad) | every setting, measurement and fit — the one file to edit |
 | [`models/air-quality-monitor.scad`](models/air-quality-monitor.scad) | the model, its asserts and its collision checks |
-| `models/air-quality-monitor-back.scad`, `-cover.scad`, `-fits.scad` | one part each; check and slice through these |
+| `models/air-quality-monitor-back.scad`, `-cover.scad` | one part each; check and slice through these |
 | [`models/assembly-views.scad`](models/assembly-views.scad) | the assembly pictures: exploded; open, with every wire's route and the wiring table; the wires at the pins close up; and the wires' collision check |
 | [`models/feature-map.scad`](models/feature-map.scad) | the numbered feature pictures |
-| [`models/fits-map.scad`](models/fits-map.scad) | the lettered picture of the clearance test |
-| [`models/sps30-measure.scad`](models/sps30-measure.scad), [`models/board-measure.scad`](models/board-measure.scad) | the readings taken on the SPS30, the SuperMini and the GY-SGP41 |
+| [`models/board-measure.scad`](models/board-measure.scad) | the readings taken on the SuperMini and the GY-SGP41 |
 | [`models/lib/axes.scad`](models/lib/axes.scad) | the x, y and z arrows every picture carries |
 | [`firmware/`](firmware/) | the node's ESPHome configuration, with its wiring table, and the secrets template. It is `print-chamber.yaml`, named for its first job: Home Assistant keys the history it records to that name |
 | [`scripts/scad-check.sh`](scripts/scad-check.sh) | renders a part, checks the mesh, slices it, and cross-checks the model against the profile |

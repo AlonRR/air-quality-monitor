@@ -21,7 +21,7 @@ are in the history.
 
 draw_fits = false after including this file draws nothing, as fits-map.scad does.
 */
-include <air-quality-monitor.scad>
+include <../air-quality-monitor.scad>
 draw_model = false;   // after the include: the box's own parts stay undrawn
 draw_fits = true;
 
