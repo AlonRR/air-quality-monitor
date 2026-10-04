@@ -38,7 +38,7 @@ As you face the box with the cover off:
     and is drawn up to its shoulder by the cover's screw.
 12. **Bump** — at the middle of the top. The cover's U straddles it, which locates the cover's top.
 13. **Wire channel** — over the SPS30's top-left corner: a slot between two ribs standing on the plate,
-    open to the front. The SGP41's four wires press in past a 45° lip on each rib and lie side by side
+    open to the front. The SGP41's four wires press in past a 45° lip, one bead deep, on each rib and lie side by side
     in it, where they turn out of the module's column over the sensor.
 14. **USB-C filler** — stands in the cover's USB-C slot behind the socket, and closes the wall there once
     the cover is on. Its end is hollowed round the socket's.

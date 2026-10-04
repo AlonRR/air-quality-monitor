@@ -66,7 +66,7 @@ Each setting breaks one thing; the check, or an assert, must catch it. Measured 
 | `check_components` | `key_xs = [6.25, 57]` | the left keyhole moved under the SPS30's channel wall: its screw head runs into it | 60.0 mm³ |
 | `check_components` | `clip_g_catch = 0.5` | the clips' catch pressing too far into the PCB | 0.61 mm³ |
 | `check_components` | `usb_open_r = 1.3` | the USB-C opening's round ends tighter than the shell's | 4.4 mm³ |
-| `check_components` | `gy_ch_zc = 44` | the SGP41 wires' channel lowered into the SPS30 | 67.5 mm³ |
+| `check_components` | `gy_ch_zc = 44` | the SGP41 wires' channel lowered into the SPS30 | 68.8 mm³ |
 | `check_slide` | `stop_x0 = 20` | the stops moved into the board's way in | 2.9 mm³ |
 | `check_slide` | `clip_g_mouth = 0.6` | the clips' mouth narrower than the PCB | 0.59 mm³ |
 | `check_insert` | `ch_x1 = 50` | the channel's wall moved into the SPS30's way in | 760 mm³ |

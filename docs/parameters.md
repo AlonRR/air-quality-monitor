@@ -124,7 +124,7 @@ thicknesses whole layers of `fdm_layer_h`, and the model asserts both.
 | `clasp_len`, `clasp_low` | **5.0**, **3.0** | each back clip's length along the edge, and how far its lower jaw reaches under the board |
 | `stop_reach` | **3.0** | how far each stop at the antenna end reaches in from a long edge; the loop leaves 4.3 free |
 | `gy_wd` | **1.56** | the SGP41's wires: the lab's 22 AWG solid hookup wire, UL1007, measured over its insulation 2 Oct 2026. The wire channel's slot is sized from it |
-| `gy_ch_len`, `gy_ch_lip_gap` | **8.0**, **1.3** | the wire channel over the SPS30's top-left corner: its length, and the opening between its two lips — narrower than a wire, so each presses in past them and stays |
+| `gy_ch_len`, `gy_ch_lip_gap` | **8.0**, **1.06** | the wire channel over the SPS30's top-left corner: its length, and the opening between its two lips — narrower than a wire, so each presses in past them and stays. Each lip reaches one bead, 0.45 mm, into the slot |
 | `gy_standoff_d`, `gy_post_d`, `gy_screw_l` | **4.6**, **6.0**, **6.0** | the SGP41's post: its top, inside the bare ring round the module's hole and two beads round the pilot; below the depth of the module's underside parts, as wide as the first clearance test's bosses; and its M2.5 screw's length |
 | `key_slack`, `key_level_tol` | **1.0**, **2.0** | how much further than the plate's thickness a wall screw's head may stand off the wall; how much lower one screw may sit than the other |
 | `back_wire_room` | **3.0** | the room kept under the board's back edge, over the wall screws' heads, for the wires to GPIO5 and GPIO6: two stacked there, the SGP41's 1.56 mm and a lead wire of about 1 mm. The keyholes sit low enough to leave it — see [Wiring](wiring.md) |
