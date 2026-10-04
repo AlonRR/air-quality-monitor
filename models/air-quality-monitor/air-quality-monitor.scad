@@ -4,7 +4,7 @@
 // (LICENSES/CC-BY-4.0.txt): reuse freely, including commercially, with attribution.
 
 /*
-The print-chamber box: two printed parts. The cover's top locates on a bump on the back plate, inside a U
+The air-quality monitor: two printed parts. The cover's top locates on a bump on the back plate, inside a U
 hanging from its top wall, and two M3 screws through its bottom corners go into nuts in the back plate.
 
   BACK PLATE   printed flat. Carries the two keyholes it hangs by, the channel the SPS30 is set into from
@@ -18,17 +18,17 @@ USB-C opening and its side vents, which are holes in a wall bridged by at most 4
 ceilings are printed with the three-layer two-bridge technique (docs/fdm-design-rules.md §3c).
 
   part = "back"       this file as it stands - what scripts/scad-check.sh checks
-  part = "cover"      print-chamber-box-cover.scad sets it
+  part = "cover"      air-quality-monitor-cover.scad sets it
   part = "assembly"   the two parts in place, with the components ghosted in. Not printable.
 
-Settings are in print-chamber-box.params.scad, and why the layout is what it is - with a source for each
+Settings are in air-quality-monitor.params.scad, and why the layout is what it is - with a source for each
 rule - is in docs/design.md. The checks it carries, and their controls, are in docs/checking.md.
 
 Everything below is drawn the way the params file's photos settled it - the SPS30's outlet, its connector
 and the board's USB-C end on your RIGHT as you face the box, which is low X - and mirrored whole when
 outlet_at_left is set.
 */
-include <print-chamber-box.params.scad>
+include <air-quality-monitor.params.scad>
 
 draw_model = true;
 
@@ -649,7 +649,7 @@ if (draw_model) {
     if (len(untested_fits) > 0)
         echo(str("WARNING: these fits have not been tested in ASA on this printer: ", untested_fits));
 
-    echo(str("print-chamber box: ", W, " x ", H, " x ", D, " mm (width x height x depth, installed), and the ",
+    echo(str("air-quality monitor: ", W, " x ", H, " x ", D, " mm (width x height x depth, installed), and the ",
              "divider ", divider_proud > 0 ? str(divider_proud, " mm below") : "flush with its bottom edge"));
     echo(str("outlet at the ", outlet_at_left ? "LEFT" : "RIGHT", " end; divider at ", divider_from_inlet_end,
              " mm from the inlet end, ", divider_t, " mm wide, ", div_clear_in, " mm clear of the inlets and ",

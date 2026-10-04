@@ -4,7 +4,7 @@
 // (LICENSES/CC-BY-4.0.txt): reuse freely, including commercially, with attribution.
 
 /*
-Which piece of the clearance test is which: print-chamber-box-fits.scad as it sat on the bed, seen from
+Which piece of the clearance test is which: air-quality-monitor-fits.scad as it sat on the bed, seen from
 the printer's front and a little above - enough tilt for the posts' pilots to show - each group
 lettered. docs/clearance-test.md shows it, with a table of what each letter tries and the
 value behind each dot count.
@@ -18,7 +18,7 @@ carries (../lib/axes.scad).
 
 draw_fits = false MUST come after the include, so the test does not also draw itself uncoloured.
 */
-include <print-chamber-box-fits.scad>
+include <air-quality-monitor-fits.scad>
 use <../lib/axes.scad>
 draw_fits = false;
 

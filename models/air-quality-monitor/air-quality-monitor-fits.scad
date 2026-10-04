@@ -4,8 +4,8 @@
 // (LICENSES/CC-BY-4.0.txt): reuse freely, including commercially, with attribution.
 
 /*
-The clearance test for the print-chamber box: one small print that tries every untested fit in
-print-chamber-box.params.scad at three settings - a step tighter, as set, and a step looser - so the box
+The clearance test for the air-quality monitor: one small print that tries every untested fit in
+air-quality-monitor.params.scad at three settings - a step tighter, as set, and a step looser - so the box
 is printed with fits that were tried in ASA on this printer rather than guessed.
 
 It INCLUDES the box, and every piece is the box's own geometry, drawn by the box's own modules with only
@@ -21,7 +21,7 @@ are in the history.
 
 draw_fits = false after including this file draws nothing, as fits-map.scad does.
 */
-include <print-chamber-box.scad>
+include <air-quality-monitor.scad>
 draw_model = false;   // after the include: the box's own parts stay undrawn
 draw_fits = true;
 

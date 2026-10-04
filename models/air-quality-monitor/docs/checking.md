@@ -14,9 +14,9 @@ Run from the repository's root:
 
 ```sh
 P="0.2mm QUALITY @MK3 - no skirt, no brim, no crossing perimeter"
-scripts/scad-check.sh models/print-chamber-box/print-chamber-box-back.scad  "$P" "Inslogic ASA"
-scripts/scad-check.sh models/print-chamber-box/print-chamber-box-cover.scad "$P" "Inslogic ASA"
-scripts/scad-check.sh models/print-chamber-box/print-chamber-box-fits.scad  "$P" "Inslogic ASA"
+scripts/scad-check.sh models/air-quality-monitor/air-quality-monitor-back.scad  "$P" "Inslogic ASA"
+scripts/scad-check.sh models/air-quality-monitor/air-quality-monitor-cover.scad "$P" "Inslogic ASA"
+scripts/scad-check.sh models/air-quality-monitor/air-quality-monitor-fits.scad  "$P" "Inslogic ASA"
 ```
 
 Each should report **one manifold part** and `fdm_*` values matching the profile: the back plate and the
@@ -26,16 +26,16 @@ cover each 68.7 × 76.3 mm on the bed.
   empty; exit 0 means both are clear, as they both are now. The clearance test reports neither, so
   it exits 0.
 - `scad-check.sh` also fails a G-code with a skirt or a brim. The profile above has neither.
-- **Always check through the three wrapper files, never through `print-chamber-box.scad` itself.** The
+- **Always check through the three wrapper files, never through `air-quality-monitor.scad` itself.** The
   `part` line in the params file is also what you change to look at a part, and `scad-check.sh` takes no
   `-D`, so a check through the model silently checks whichever part is on screen.
 
 ## Collisions — in the model
 
-Render each to STL from `models/print-chamber-box/`, for example:
+Render each to STL from `models/air-quality-monitor/`, for example:
 
 ```sh
-openscad -o check.stl -D 'part="check_components"' print-chamber-box.scad
+openscad -o check.stl -D 'part="check_components"' air-quality-monitor.scad
 ```
 
 **Run each with `outlet_at_left` set both ways** (add `-D outlet_at_left=true`). The model mirrors, and a

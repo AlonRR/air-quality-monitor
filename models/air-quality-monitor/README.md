@@ -1,4 +1,4 @@
-# print-chamber box
+# Air-quality monitor
 
 An enclosure for the printer chamber node: an ESP32-C3 SuperMini, a Sensirion SPS30 particle sensor and
 a GY-SGP41 VOC/NOx module, running [`firmware/print-chamber.yaml`](../../firmware/print-chamber.yaml). It
@@ -34,9 +34,9 @@ printed box: both are checked in the model, and not printed yet.
 
 | Part | File | Prints |
 |---|---|---|
-| Back plate | [`print-chamber-box-back.scad`](print-chamber-box-back.scad) | flat on its back |
-| Cover | [`print-chamber-box-cover.scad`](print-chamber-box-cover.scad) | front face down |
-| Clearance test | [`print-chamber-box-fits.scad`](print-chamber-box-fits.scad) | flat |
+| Back plate | [`air-quality-monitor-back.scad`](air-quality-monitor-back.scad) | flat on its back |
+| Cover | [`air-quality-monitor-cover.scad`](air-quality-monitor-cover.scad) | front face down |
+| Clearance test | [`air-quality-monitor-fits.scad`](air-quality-monitor-fits.scad) | flat |
 
 **Hardware:** two M3 × 20 socket head cap screws and two M3 nuts for the cover, one M2.5 × 6 socket head cap screw for
 the SGP41, two 4 × 20 chipboard screws and their wall plugs to hang it, and 22 AWG solid hookup wire
@@ -63,9 +63,9 @@ opening is a hole in the first layers or a notch open at an edge.
 
 | File | |
 |---|---|
-| [`print-chamber-box.params.scad`](print-chamber-box.params.scad) | every setting, measurement and fit — the one file to edit |
-| [`print-chamber-box.scad`](print-chamber-box.scad) | the model, its asserts and its collision checks |
-| `print-chamber-box-back.scad`, `-cover.scad`, `-fits.scad` | one part each; check and slice through these |
+| [`air-quality-monitor.params.scad`](air-quality-monitor.params.scad) | every setting, measurement and fit — the one file to edit |
+| [`air-quality-monitor.scad`](air-quality-monitor.scad) | the model, its asserts and its collision checks |
+| `air-quality-monitor-back.scad`, `-cover.scad`, `-fits.scad` | one part each; check and slice through these |
 | [`assembly-views.scad`](assembly-views.scad) | the assembly pictures: exploded; open, with every wire's route and the wiring table; the wires at the pins close up; and the wires' collision check |
 | [`feature-map.scad`](feature-map.scad) | the numbered feature pictures |
 | [`fits-map.scad`](fits-map.scad) | the lettered picture of the clearance test |

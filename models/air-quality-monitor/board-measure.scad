@@ -17,7 +17,7 @@ them.
     openscad -o docs/board-measure.png --imgsize=1800,1300 --projection=o \
       --camera=35,22.3,0,0,0,0,152 --colorscheme=Tomorrow board-measure.scad
 */
-include <print-chamber-box.params.scad>
+include <air-quality-monitor.params.scad>
 use <../lib/axes.scad>
 draw_model = false;   // only the variables
 

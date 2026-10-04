@@ -2,7 +2,7 @@
 
 **Every fit is tested now** — the last on 4 Oct 2026 — so the box needs no more of this. The test is
 kept for when a setting, the printer or the filament changes: then reprint
-[`print-chamber-box-fits.scad`](../print-chamber-box-fits.scad) before the box, in the same ASA with the
+[`air-quality-monitor-fits.scad`](../air-quality-monitor-fits.scad) before the box, in the same ASA with the
 same profile — one flat part, about 33 min and 3.2 g. It tries each fit three ways. Every piece is the box's own geometry — drawn by the box's own modules, with only the fit changed,
 and lying on the bed as it does in the back plate — so it tests exactly what the box will print.
 
@@ -35,7 +35,7 @@ The values follow the settings, so after a setting changes, a reprint tries a ne
 
 ## Turning a result into a setting
 
-Set the value in [`print-chamber-box.params.scad`](../print-chamber-box.params.scad) and delete its name
+Set the value in [`air-quality-monitor.params.scad`](../air-quality-monitor.params.scad) and delete its name
 from `untested_fits`. If even the tighter try is loose, or the looser one still binds, the ladder was in
 the wrong place: say so, and it moves.
 

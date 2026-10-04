@@ -17,7 +17,7 @@ as they are so that they show.
     openscad -o docs/sps30-measure.png --imgsize=1800,1300 --projection=o --viewall --autocenter \
       --camera=0,0,0,86,0,0,300 --colorscheme=Tomorrow sps30-measure.scad
 */
-include <print-chamber-box.params.scad>
+include <air-quality-monitor.params.scad>
 use <../lib/axes.scad>
 draw_model = false;   // only the variables
 

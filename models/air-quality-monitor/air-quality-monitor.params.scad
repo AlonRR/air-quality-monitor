@@ -4,7 +4,7 @@
 // (LICENSES/CC-BY-4.0.txt): reuse freely, including commercially, with attribution.
 
 /*
-Everything you SET for the print-chamber box. Render print-chamber-box.scad, not this file.
+Everything you SET for the air-quality monitor. Render air-quality-monitor.scad, not this file.
 
 The box for the node in firmware/print-chamber.yaml: an SPS30 particle sensor standing on edge with its
 air face DOWN, the ESP32-C3 SuperMini held level by its edges just above its lead, the antenna's pole
@@ -149,4 +149,4 @@ fdm_hole_comp   = 0.15;   /* Added to every hole's radius - fdm-design-rules §2
 
 /* Opened on its own, this file draws nothing - it only holds numbers. */
 if (is_undef(draw_model))
-    echo("THIS IS THE SETTINGS FILE - numbers only, so the view stays empty. Open print-chamber-box.scad to see the model.");
+    echo("THIS IS THE SETTINGS FILE - numbers only, so the view stays empty. Open air-quality-monitor.scad to see the model.");

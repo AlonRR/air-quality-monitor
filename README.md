@@ -1,10 +1,10 @@
-# Print-chamber box
+# Air-quality monitor
 
 An ESPHome node that measures the air around a 3D printer — particles with a Sensirion SPS30, VOC and NOx
 with a GY-SGP41, on an ESP32-C3 SuperMini — and the printed box it lives in. The box hangs on a wall by
 two screws, outside the printer's enclosure, with the SPS30's air face down.
 
-![assembled, cover off](models/print-chamber-box/docs/assembly-open.png)
+![assembled, cover off](models/air-quality-monitor/docs/assembly-open.png)
 
 **Status:** the box is modelled and checked, and every fit in it has been tried in ASA on the printer. The
 USB-C slot in the cover and the flush divider under the SPS30 changed after the last printed box, and are
@@ -14,13 +14,13 @@ not printed yet. The firmware's configuration is valid and has compiled; it is n
 
 | | |
 |---|---|
-| [`models/print-chamber-box/`](models/print-chamber-box/) | the box — **start at its README**: printing, assembly, wiring, and how it is designed |
+| [`models/air-quality-monitor/`](models/air-quality-monitor/) | the box — **start at its README**: printing, assembly, wiring, and how it is designed |
 | [`firmware/print-chamber.yaml`](firmware/print-chamber.yaml) | the node's ESPHome configuration, with its wiring table |
 | [`firmware/secrets.yaml.example`](firmware/secrets.yaml.example) | copy it to `firmware/secrets.yaml`, which is gitignored, and fill it in |
 | [`scripts/scad-check.sh`](scripts/scad-check.sh) | renders a part, checks the mesh, slices it, and cross-checks the model against the profile |
 | [`models/lib/axes.scad`](models/lib/axes.scad) | the x, y and z arrows every figure carries |
 
-How to check a change to the box: [Checking it](models/print-chamber-box/docs/checking.md).
+How to check a change to the box: [Checking it](models/air-quality-monitor/docs/checking.md).
 
 ## Licence
 

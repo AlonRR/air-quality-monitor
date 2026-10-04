@@ -4,7 +4,7 @@
 // (LICENSES/CC-BY-4.0.txt): reuse freely, including commercially, with attribution.
 
 /*
-Feature map for the print-chamber box: each printed part with its features numbered. docs/features.md
+Feature map for the air-quality monitor: each printed part with its features numbered. docs/features.md
 says what every number does.
 
 It INCLUDES the model rather than restating it, so every marker sits wherever the model currently puts
@@ -22,7 +22,7 @@ are swapped: the USB-C opening, on your right when the box is up, is on the left
 draw_model = false MUST come after the include: the last assignment in a scope wins, so this suppresses
 the part while keeping every variable.
 */
-include <print-chamber-box.scad>
+include <air-quality-monitor.scad>
 use <../lib/axes.scad>
 draw_model = false;
 

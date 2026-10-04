@@ -1,6 +1,6 @@
 # Parameters
 
-Every dimension has a name in [`print-chamber-box.params.scad`](../print-chamber-box.params.scad), so a
+Every dimension has a name in [`air-quality-monitor.params.scad`](../air-quality-monitor.params.scad), so a
 value goes in against its name rather than a description. This page says where each came from.
 
 If a part changes, set the new value there. A value not yet measured goes in the `unmeasured` list,

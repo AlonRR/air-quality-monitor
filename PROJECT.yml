@@ -2,9 +2,9 @@
 # schema version: set by `ledger migrate` or `ledger init` -- do not edit by hand
 schema: 1
 projects:
-  - name:     Print-chamber box
+  - name:     Air-quality monitor
     kind:     build
     state:    active
     next:     "print the back plate and cover with the open USB-C slot and the flush divider, then wire and flash the node"
-    trackers: [models/print-chamber-box/README.md, firmware/print-chamber.yaml]
+    trackers: [models/air-quality-monitor/README.md, firmware/print-chamber.yaml]
     review:   2026-10-04

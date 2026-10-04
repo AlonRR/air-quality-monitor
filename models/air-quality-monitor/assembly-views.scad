@@ -4,7 +4,7 @@
 // (LICENSES/CC-BY-4.0.txt): reuse freely, including commercially, with attribution.
 
 /*
-Assembly views of the print-chamber box, for docs/assembly.md and docs/wiring.md.
+Assembly views of the air-quality monitor, for docs/assembly.md and docs/wiring.md.
 
   view = "exploded"   every part, moved apart along the way it goes in: the nuts from the wall side, the
                       SuperMini from the front into its clasps, the SGP41 and its screw from the side,
@@ -32,7 +32,7 @@ outlet at the right.
 
 draw_model = false MUST come after the include: the last assignment in a scope wins.
 */
-include <print-chamber-box.scad>
+include <air-quality-monitor.scad>
 use <../lib/axes.scad>
 draw_model = false;
 
