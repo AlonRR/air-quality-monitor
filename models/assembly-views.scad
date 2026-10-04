@@ -158,8 +158,8 @@ function gy_start(i) = [[gy_pin_x(i), gy_yu - gy_wd / 2, gy_pin_z], [gy_pin_x(i)
 function gy_to_back(i, x, y_flat) = concat(gy_start(i),
     [[x, gy_lane[i], z_cross], [x, y_flat, zg], [x, y_back_end, zg]]);
 gy_routes = [
-    gy_to_back(0, px[0], y_back_end + 5.8),                                          // SDA -> GPIO5
-    gy_to_back(1, px[1], y_back_end + 8.8),                                          // SCL -> GPIO6
+    gy_to_back(0, px[0], y_back_end + 8.8),                                          // SDA -> GPIO5
+    gy_to_back(1, px[1], y_back_end + 9.8),                                          // SCL -> GPIO6
     concat(gy_start(2), [[px[1], gy_lane[2], z_cross], [px[1], y_front_end, z_cross + 6.0],
                          [px[1], y_front_end, zg]]),                                 // GND -> GND
     concat(gy_start(3), [[px[2], gy_lane[3], z_cross], [px[2], y_front_end, zg]])];   // VIN -> 3V3
