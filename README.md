@@ -49,6 +49,30 @@ its back, so on the bed its y is up.
 | Back plate | [`models/air-quality-monitor-back.scad`](models/air-quality-monitor-back.scad) | flat on its back |
 | Cover | [`models/air-quality-monitor-cover.scad`](models/air-quality-monitor-cover.scad) | front face down |
 
+**The models need the [`scad-tools`](https://github.com/AlonRR/scad-tools) submodule**, which holds the
+shapes they use. Clone with it:
+
+```sh
+git clone --recursive https://github.com/AlonRR/air-quality-monitor
+```
+
+A ZIP from GitHub comes without it: from the unpacked folder, fetch the version this repository is pinned
+to. In PowerShell:
+
+```powershell
+$pin = (Invoke-RestMethod https://api.github.com/repos/AlonRR/air-quality-monitor/contents/scad-tools).sha
+Invoke-WebRequest "https://github.com/AlonRR/scad-tools/archive/$pin.zip" -OutFile scad-tools.zip
+Remove-Item -Recurse -ErrorAction SilentlyContinue scad-tools
+Expand-Archive scad-tools.zip . ; Rename-Item "scad-tools-$pin" scad-tools ; Remove-Item scad-tools.zip
+```
+
+or in a POSIX shell:
+
+```sh
+pin=$(curl -s https://api.github.com/repos/AlonRR/air-quality-monitor/contents/scad-tools | sed -n 's/.*"sha": *"\([0-9a-f]*\)".*/\1/p')
+rm -rf scad-tools && mkdir scad-tools && curl -sL "https://github.com/AlonRR/scad-tools/archive/$pin.tar.gz" | tar xz --strip-components=1 -C scad-tools
+```
+
 **Hardware:** two M3 × 20 socket head cap screws and two M3 nuts for the cover, one M2.5 × 6 socket head cap
 screw for the SGP41, two 4 × 20 chipboard screws and their wall plugs to hang it, and 22 AWG solid hookup
 wire for the SGP41. No tape, no glue.
@@ -82,13 +106,10 @@ opening is a hole in the first layers or a notch open at an edge.
 | [`models/assembly-views.scad`](models/assembly-views.scad) | the assembly pictures: exploded; open, with every wire's route and the wiring table; the wires at the pins close up; and the wires' collision check |
 | [`models/feature-map.scad`](models/feature-map.scad) | the numbered feature pictures |
 | [`models/board-measure.scad`](models/board-measure.scad) | the readings taken on the SuperMini and the GY-SGP41 |
-| [`models/lib/axes.scad`](models/lib/axes.scad) | the x, y and z arrows every picture carries |
-| [`models/lib/shapes.scad`](models/lib/shapes.scad), [`routes.scad`](models/lib/routes.scad) | shapes and wire routes that know nothing about the box: every size a parameter, loaded with `use` |
 | [`firmware/`](firmware/) | the node's ESPHome configuration, with its wiring table, and the secrets template. It is `print-chamber.yaml`, named for its first job: Home Assistant keys the history it records to that name |
-| [`scripts/scad-check.sh`](scripts/scad-check.sh) | renders a part, checks the mesh, slices it, and cross-checks the model against the profile |
 | [`scripts/checks.py`](scripts/checks.py) | the collision checks, the positive controls and the pictures, run as [Checking it](docs/checking.md) describes |
-| [`scripts/printables.py`](scripts/printables.py) | each printed part as one self-contained `.scad`, and its STL, for Printables: `uv run scripts/printables.py`, into `printables/` |
-| [`scripts/scadtools.py`](scripts/scadtools.py), [`scad-project.toml`](scad-project.toml) | what the scripts share, and what they need to know about this repository |
+| [`scad-project.toml`](scad-project.toml) | what the shared scripts need to know about this repository: its printed parts |
+| [`scad-tools/`](https://github.com/AlonRR/scad-tools) | the shared tools, a git submodule: the xyz arrows, shapes and wire routes the models `use`; `scad-check.sh`; `printables.py`, which makes each printed part one `.scad` and its STL for Printables - `uv run scad-tools/scripts/printables.py`, into `printables/` |
 
 ## Licence
 

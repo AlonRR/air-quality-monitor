@@ -27,9 +27,9 @@ Run from the repository's root:
 
 ```sh
 P="0.2mm QUALITY @MK3 - no skirt, no brim, no crossing perimeter"
-scripts/scad-check.sh models/air-quality-monitor-back.scad  "$P" "Inslogic ASA"
-scripts/scad-check.sh models/air-quality-monitor-cover.scad "$P" "Inslogic ASA"
-scripts/scad-check.sh models/fits/air-quality-monitor-fits.scad  "$P" "Inslogic ASA"
+scad-tools/scripts/scad-check.sh models/air-quality-monitor-back.scad  "$P" "Inslogic ASA"
+scad-tools/scripts/scad-check.sh models/air-quality-monitor-cover.scad "$P" "Inslogic ASA"
+scad-tools/scripts/scad-check.sh models/fits/air-quality-monitor-fits.scad  "$P" "Inslogic ASA"
 ```
 
 Each should report **one manifold part** and `fdm_*` values matching the profile: the back plate and the

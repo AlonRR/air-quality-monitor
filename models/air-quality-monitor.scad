@@ -17,7 +17,7 @@ Every opening is a hole in its part's first layers or a notch open at its back e
 USB-C opening and its side vents, which are holes in a wall bridged by at most 4 mm. The nut pockets'
 ceilings are printed with the three-layer two-bridge technique (docs/fdm-design-rules.md §3c).
 
-  part = "back"       this file as it stands - what scripts/scad-check.sh checks
+  part = "back"       this file as it stands - what scad-check.sh checks
   part = "cover"      air-quality-monitor-cover.scad sets it
   part = "assembly"   the two parts in place, with the components ghosted in. Not printable.
 
@@ -31,7 +31,7 @@ and the board's USB-C end on your RIGHT as you face the box, which is low X - an
 outlet_at_left is set.
 */
 include <air-quality-monitor.layout.scad>
-use <lib/shapes.scad>
+use <../scad-tools/lib/shapes.scad>
 
 draw_model = true;
 
@@ -39,7 +39,7 @@ $fa = 2;
 $fs = 0.4;
 
 // =================================================================== geometry helpers
-// The plain shapes - rrect, slab_xz, box3, cyl_y, cyl_x and the coves - are in lib/shapes.scad.
+// The plain shapes - rrect, slab_xz, box3, cyl_y, cyl_x and the coves - are in scad-tools/lib/shapes.scad.
 
 // ------------------------------------------------------------------ fillets
 // Concave fillets at the roots of the thin features, for strength - only in 90-degree inside corners. Each

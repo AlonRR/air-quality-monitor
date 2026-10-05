@@ -20,7 +20,7 @@ them.
       --camera=35,22.3,0,0,0,0,152 --colorscheme=Tomorrow models/board-measure.scad
 */
 include <air-quality-monitor.params.scad>
-use <lib/axes.scad>
+use <../scad-tools/lib/axes.scad>
 draw_model = false;   // only the variables
 
 cam = [0, 0, 0];      // seen from straight above, so the text needs no turning

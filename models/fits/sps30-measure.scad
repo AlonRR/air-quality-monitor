@@ -20,7 +20,7 @@ as they are so that they show.
       --camera=0,0,0,86,0,0,300 --colorscheme=Tomorrow models/fits/sps30-measure.scad
 */
 include <../air-quality-monitor.params.scad>
-use <../lib/axes.scad>
+use <../../scad-tools/lib/axes.scad>
 draw_model = false;   // only the variables
 
 cam = [86, 0, 0];     // the --camera angles above: the text faces the camera

@@ -25,7 +25,7 @@ draw_model = false MUST come after the include: the last assignment in a scope w
 the part while keeping every variable.
 */
 include <air-quality-monitor.scad>
-use <lib/axes.scad>
+use <../scad-tools/lib/axes.scad>
 draw_model = false;
 
 view = "back";   // "back" or "cover"

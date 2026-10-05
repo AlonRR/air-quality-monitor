@@ -35,8 +35,8 @@ outlet at the right.
 draw_model = false MUST come after the include: the last assignment in a scope wins.
 */
 include <air-quality-monitor.scad>
-use <lib/axes.scad>
-use <lib/routes.scad>
+use <../scad-tools/lib/axes.scad>
+use <../scad-tools/lib/routes.scad>
 draw_model = false;
 
 view = "open";   // "exploded" or "open"
@@ -84,7 +84,7 @@ wire_stub   = gy_stub;     // straight out of a solder joint before the first be
 ant_clear   = 3.0;    // no wire nearer the antenna's loop or pole than this, surface to surface
 pad_join    = 5.0;    // two wires that end on one pad may meet within this of it
 
-// A route is a list of corners; lib/routes.scad draws it and measures it.
+// A route is a list of corners; scad-tools/lib/routes.scad draws it and measures it.
 
 // The board's pins the wires go to, along X from its USB-C end: 5V, GND, 3V3 on its front edge, GPIO5,
 // GPIO6 on its back edge - the first two columns.

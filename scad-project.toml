@@ -4,6 +4,6 @@
 # What the shared OpenSCAD scripts need to know about this repository.
 
 [printables]
-# Each printed part's own file - the one that includes the model and picks the part. scripts/printables.py
-# makes each into one self-contained .scad, and its STL, for Printables.
+# Each printed part's own file - the one that includes the model and picks the part.
+# scad-tools/scripts/printables.py makes each into one self-contained .scad, and its STL, for Printables.
 parts = ["models/air-quality-monitor-back.scad", "models/air-quality-monitor-cover.scad"]

@@ -70,7 +70,7 @@ key_head_h  = 2.68;   /* Its head, tall. */
 
 unmeasured = [];
 /* Delete a name from this list once its value is measured. While any remain, the model echoes a
-   WARNING and scripts/scad-check.sh exits 2 - which is the INTENDED state until then. */
+   WARNING and scad-check.sh exits 2 - which is the INTENDED state until then. */
 
 /* [The USB-C cable - sourced, so no cable needs measuring] */
 usb_plug_w = 12.35;   /* The widest a compliant plug's body may be: USB Type-C compliance document rev 1.2, Figure B-1, dimension 1. */
@@ -144,7 +144,7 @@ nut_h     = 2.4;    /* ... and its height - ISO 4032, the largest allowed. */
 corner_r  = 4.0;    /* Plan-view corner radius. ASA lifts at sharp corners; a radius is the permanent cure (fdm-design-rules §5b). */
 gap       = 1.0;    /* General clearance between internal features. */
 
-/* [Print reality - cross-checked by scripts/scad-check.sh against the profile used] */
+/* [Print reality - cross-checked by scad-check.sh against the profile used] */
 fdm_layer_h     = 0.2;
 fdm_extrusion_w = 0.45;
 fdm_hole_comp   = 0.15;   /* Added to every hole's radius - fdm-design-rules §2. Not cross-checked. */

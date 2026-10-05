@@ -11,7 +11,7 @@ value behind each dot count.
 
 It INCLUDES the test, so every letter sits wherever the test puts that group and the dots are the test's
 own. Three colours: the base, everything standing on it, and the dots - plus the xyz arrows every figure
-carries (../lib/axes.scad).
+carries (scad-tools/lib/axes.scad).
 
 `uv run scripts/checks.py figures --write` renders it with the other pictures and reads the output; by hand:
 
@@ -21,7 +21,7 @@ carries (../lib/axes.scad).
 draw_fits = false MUST come after the include, so the test does not also draw itself uncoloured.
 */
 include <air-quality-monitor-fits.scad>
-use <../lib/axes.scad>
+use <../../scad-tools/lib/axes.scad>
 draw_fits = false;
 
 // the split sits 0.3 mm above the base, so the pads under the posts read as pieces

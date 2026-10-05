@@ -31,7 +31,7 @@ import tempfile
 import uuid
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scad-tools" / "scripts"))
 from scadtools import (DEGENERATE, ROOT, defines, parallel, problems, render, same_solid,  # noqa: E402
                        stl_stats, describe)
 
