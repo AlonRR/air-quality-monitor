@@ -34,6 +34,7 @@ draw_model = false MUST come after the include: the last assignment in a scope w
 */
 include <air-quality-monitor.scad>
 use <lib/axes.scad>
+use <lib/routes.scad>
 draw_model = false;
 
 view = "open";   // "exploded" or "open"
@@ -81,29 +82,7 @@ wire_stub   = gy_stub;     // straight out of a solder joint before the first be
 ant_clear   = 3.0;    // no wire nearer the antenna's loop or pole than this, surface to surface
 pad_join    = 5.0;    // two wires that end on one pad may meet within this of it
 
-// A route is a list of corners. Each corner is drawn as a circular arc of radius r where the segments
-// leave room for one: an end segment may give all its length to its one bend, a middle segment half to
-// each of its two. Where they do not, the arc is tighter - min_radius() reports it.
-function unit(v) = v / norm(v);
-function turn(pts, i) = acos(max(-1, min(1, unit(pts[i] - pts[i - 1]) * unit(pts[i + 1] - pts[i]))));
-function cut_max(pts, i) = min(norm(pts[i] - pts[i - 1]) / (i == 1 ? 1 : 2),
-                               norm(pts[i + 1] - pts[i]) / (i == len(pts) - 2 ? 1 : 2));
-function cut(pts, i, r) = min(r * tan(turn(pts, i) / 2), cut_max(pts, i));
-function arc(pts, i, r, n = 8) = let(th = turn(pts, i), p = pts[i]) th < 0.5 ? [p] : let(
-    ui = unit(p - pts[i - 1]), uo = unit(pts[i + 1] - p),
-    ra = cut(pts, i, r) / tan(th / 2), n1 = unit(uo - ui * (ui * uo)), o = p - ui * cut(pts, i, r) + n1 * ra)
-    [for (k = [0 : n]) let(f = th * k / n) o - n1 * ra * cos(f) + ui * ra * sin(f)];
-function rounded(pts, r) = concat([pts[0]], [for (i = [1 : len(pts) - 2]) each arc(pts, i, r)], [pts[len(pts) - 1]]);
-function min_radius(pts, r) = min([for (i = [1 : len(pts) - 2])
-    turn(pts, i) < 0.5 ? 1e9 : cut(pts, i, r) / tan(turn(pts, i) / 2)]);
-// for the clearance checks: the drawn route, a point every step mm
-function dense(pts, step = 0.4) = concat([for (i = [0 : len(pts) - 2]) let(a = pts[i], b = pts[i + 1],
-    n = max(1, ceil(norm(b - a) / step))) each [for (k = [0 : n - 1]) a + (b - a) * k / n]], [pts[len(pts) - 1]]);
-function min_gap(p, q) = min([for (a = p) min([for (b = q) norm(a - b)])]);
-function last(v) = v[len(v) - 1];
-
-module wire(pts, c, d, r, s = 0, fn = 10) let(q = rounded(pts, r)) color(c) for (i = [0 : len(q) - 2])
-    hull() { translate(q[i]) sphere(d = d - 2 * s, $fn = fn); translate(q[i + 1]) sphere(d = d - 2 * s, $fn = fn); }
+// A route is a list of corners; lib/routes.scad draws it and measures it.
 
 // The board's pins the wires go to, along X from its USB-C end: 5V, GND, 3V3 on its front edge, GPIO5,
 // GPIO6 on its back edge - the first two columns.
