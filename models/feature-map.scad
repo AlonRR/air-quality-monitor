@@ -10,6 +10,8 @@ says what every number does.
 It INCLUDES the model rather than restating it, so every marker sits wherever the model currently puts
 that feature. Change a parameter and re-render, and the map follows.
 
+`uv run scripts/checks.py figures --write` renders it with the other pictures and reads the output; by hand:
+
     openscad -o docs/feature-map-back.png  -D 'view="back"'  --imgsize=1800,1500 --projection=o --viewall \
       --autocenter --camera=31,0,44,78,0,195,260 --colorscheme=Tomorrow models/feature-map.scad
     openscad -o docs/feature-map-cover.png -D 'view="cover"' --imgsize=1800,1500 --projection=o --viewall \

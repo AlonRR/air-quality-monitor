@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 # SPDX-FileCopyrightText: 2026 Alon A. Rabinowitz
 # SPDX-License-Identifier: MPL-2.0
+#
+# A copy of scripts/scad-check.sh in github.com/AlonRR/3d-printing-toolkit at commit d30059a, kept here so
+# this repository checks its parts on its own. A change belongs there first, then copied here.
 
 # Verify an OpenSCAD part end to end: render -> STL -> manifold -> slice, and cross-check the model's fdm_* values against the profile it was actually sliced with.
 #

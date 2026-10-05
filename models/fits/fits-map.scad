@@ -13,6 +13,8 @@ It INCLUDES the test, so every letter sits wherever the test puts that group and
 own. Three colours: the base, everything standing on it, and the dots - plus the xyz arrows every figure
 carries (../lib/axes.scad).
 
+`uv run scripts/checks.py figures --write` renders it with the other pictures and reads the output; by hand:
+
     openscad -o docs/fits-map.png --imgsize=1600,1150 --projection=o --viewall --autocenter \
       --camera=0,0,0,30,0,0,300 --colorscheme=Tomorrow models/fits/fits-map.scad
 

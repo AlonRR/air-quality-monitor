@@ -5,6 +5,6 @@ projects:
   - name:     Air-quality monitor
     kind:     build
     state:    active
-    next:     "print the back plate and cover with the open USB-C slot and the flush divider, then wire and flash the node"
+    next:     "check the box now printing - the USB-C slot, the flush divider, the SPS30's standoff ribs, the fillets - then wire and flash the node"
     trackers: [README.md, firmware/print-chamber.yaml]
-    review:   2026-10-04
+    review:   2026-10-05

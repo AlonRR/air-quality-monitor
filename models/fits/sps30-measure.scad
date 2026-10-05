@@ -14,6 +14,8 @@ through its thickness, z along the way it slides through. Sizes are the params f
 sit is read off the datasheet's Figure 7, so it is approximate, and they are drawn `show` times as proud
 as they are so that they show.
 
+`uv run scripts/checks.py figures --write` renders it with the other pictures and reads the output; by hand:
+
     openscad -o docs/sps30-measure.png --imgsize=1800,1300 --projection=o --viewall --autocenter \
       --camera=0,0,0,86,0,0,300 --colorscheme=Tomorrow models/fits/sps30-measure.scad
 */

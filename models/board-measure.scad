@@ -14,6 +14,8 @@ Drawn as the boards lie on the table, seen from above: x to the right, y up the 
 Outlines and pins are the params file's; the parts on the boards are only roughly where the photos put
 them.
 
+`uv run scripts/checks.py figures --write` renders it with the other pictures and reads the output; by hand:
+
     openscad -o docs/board-measure.png --imgsize=1800,1300 --projection=o \
       --camera=35,22.3,0,0,0,0,152 --colorscheme=Tomorrow models/board-measure.scad
 */

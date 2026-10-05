@@ -23,6 +23,8 @@ open view runs the checks as it draws; an ERROR: Assertion line in its output me
 still exits 0, so read the output, not the exit code. The routes are laid out for the box as built,
 outlet at the right.
 
+`uv run scripts/checks.py figures --write` renders it with the other pictures and reads the output; by hand:
+
     openscad -o docs/assembly-exploded.png -D 'view="exploded"' --imgsize=1800,1500 --projection=o --viewall \
       --autocenter --camera=33,80,38,68,0,252,560 --colorscheme=Tomorrow models/assembly-views.scad
     openscad -o docs/assembly-open.png -D 'view="open"' --imgsize=1800,1500 --projection=o --viewall \
