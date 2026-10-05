@@ -6,16 +6,18 @@
 # ///
 """The model's checks beyond scad-check.sh, runnable by anyone with OpenSCAD and uv. From the repository's root:
 
-  uv run scripts/checks.py collisions     the five collision checks, with the box both ways round
-  uv run scripts/checks.py controls       every positive control in docs/checking.md, re-measured
+  uv run scripts/checks.py collisions     the five collision checks, the box both ways round, and the
+                                          wires against everything in it
+  uv run scripts/checks.py controls       every positive control in docs/checking.md and docs/wiring.md,
+                                          re-measured
   uv run scripts/checks.py figures [--write] [NAME ...]
                                           every picture in docs/, each render's output read for errors -
                                           rendered aside, or over docs/ with --write
   uv run scripts/checks.py stats A.stl [B.stl]   an STL's size and shape; given two, whether they match
 
-docs/checking.md says what each check and control means; this file only runs them. The controls are read
-from that page's tables, so the page and the check cannot drift apart: a control that no longer fails, or
-measures something other than what the page says, fails the run.
+docs/checking.md and docs/wiring.md say what each check and control means; this file only runs them. The
+controls are read from those pages' tables, so a page and its check cannot drift apart: a control that no
+longer fails, or measures something other than what its page says, fails the run.
 
 Why OpenSCAD's output is read and not only its exit code: a failed assert during a PNG or .echo export
 still exits 0, and writes a blank picture. An STL export exits 1.
@@ -38,6 +40,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL = "models/air-quality-monitor.scad"
+WIRES = "models/assembly-views.scad"
 OPENSCAD = os.environ.get("OPENSCAD") or shutil.which("openscad") or "openscad"
 JOBS = int(os.environ.get("JOBS", max(1, (os.cpu_count() or 2) // 2)))
 
@@ -138,12 +141,26 @@ def defines(settings):
     return [x for name, value in settings for x in ("-D", f"{name}={value}")]
 
 
-def run_part(part, settings, tmp):
-    """Render one check part to STL; return (volume or None when OpenSCAD wrote nothing, problems, log)."""
-    out = Path(tmp) / f"{part}-{uuid.uuid4().hex[:12]}.stl"
-    _, log = render(out, MODEL, defines([("part", f'"{part}"'), *settings]))
-    volume = stl_stats(out)["volume"] if out.exists() else None
+def run_case(scad, selector, settings, tmp, ext="stl"):
+    """Render one check to STL - or to .echo, for a view whose asserts are the check - and return (volume, or
+    None when OpenSCAD wrote no solid; problems; the whole output). An .echo export writes an assert's ERROR
+    line into the file, not to the console, so the file is read as well."""
+    out = Path(tmp) / f"case-{uuid.uuid4().hex[:12]}.{ext}"
+    _, log = render(out, scad, defines([selector, *settings]))
+    if ext == "echo" and out.exists():
+        log += "\n" + out.read_text(encoding="utf-8", errors="replace")
+    volume = stl_stats(out)["volume"] if ext == "stl" and out.exists() else None
     return volume, problems(log, allowed=[DEGENERATE]), log
+
+
+def part(name):
+    """A check in the model: the file, and the part that selects it."""
+    return MODEL, ("part", f'"{name}"')
+
+
+def view(name):
+    """A view in the assembly views: the file, and the view that selects it."""
+    return WIRES, ("view", f'"{name}"')
 
 
 def parallel(fn, items):
@@ -154,13 +171,15 @@ def parallel(fn, items):
 # ---------------------------------------------------------------- the checks
 def collisions():
     """Each check intersects two things that must not meet: OpenSCAD must write nothing, or - for the parts
-    against each other, which touch - a solid of no volume. Both ways round: a check run one way only has
-    passed a mirrored mistake before."""
-    cases = [(part, side) for side in ("false", "true") for part in COLLISIONS]
+    against each other, which touch - a solid of no volume. The box both ways round: a check run one way
+    only has passed a mirrored mistake before. The wires only the way they are laid out, the box as built."""
+    cases = [(f"{name:17} outlet_at_left={side}", *part(name), [("outlet_at_left", side)])
+             for side in ("false", "true") for name in COLLISIONS]
+    cases.append(("check_wires       the box as built", *view("check_wires"), []))
     with tempfile.TemporaryDirectory() as tmp:
-        results = parallel(lambda c: run_part(c[0], [("outlet_at_left", c[1])], tmp), cases)
+        results = parallel(lambda c: run_case(c[1], c[2], c[3], tmp), cases)
     failed = 0
-    for (part, side), (volume, bad, _) in zip(cases, results):
+    for (label, *_), (volume, bad, _) in zip(cases, results):
         if bad:
             verdict, failed = "FAIL  " + "; ".join(bad)[:200], failed + 1
         elif volume is None:
@@ -169,35 +188,51 @@ def collisions():
             verdict = f"ok    zero volume ({volume:.4f} mm3)"
         else:
             verdict, failed = f"FAIL  {volume:.3f} mm3", failed + 1
-        print(f"{part:17} outlet_at_left={side:5}  {verdict}")
+        print(f"{label:40} {verdict}")
     print(f"{len(cases) - failed} of {len(cases)} as they must be")
     return failed == 0
 
 
 def documented_controls():
-    """The controls docs/checking.md lists: (check, settings, expected) with expected a volume in mm3 and
-    the number of decimals the page gives it, or "assert"."""
-    text = (ROOT / "docs/checking.md").read_text(encoding="utf-8")
-    section = text.split("## Positive controls", 1)[1]
+    """The controls the two pages list - docs/checking.md for the box, docs/wiring.md for the wire routes -
+    as (label, file, selector, settings, expected, export), expected a volume in mm3 with the number of
+    decimals the page gives it, or "assert"."""
     controls = []
-    for line in section.splitlines():
+    for cells, settings in table_rows("docs/checking.md", "## Positive controls"):
+        check = next((c.strip("`") for c in cells if re.fullmatch(r"`check_[a-z_]+`", c)), None)
+        measured = volume_in(cells[-1])
+        if check and measured:
+            controls.append((check, *part(check), settings, measured, "stl"))
+        elif not check:
+            controls.append(("check_parts", *part("check_parts"), settings, "assert", "stl"))
+    for cells, settings in table_rows("docs/wiring.md", "## Checking the routes"):
+        measured = volume_in(cells[-1])
+        if "`check_wires`" in cells[-1] and measured:
+            controls.append(("check_wires", *view("check_wires"), settings, measured, "stl"))
+        elif cells[-1].startswith("an assert"):
+            controls.append(("the open view", *view("open"), settings, "assert", "echo"))
+    return controls
+
+
+def table_rows(page, heading):
+    """Each row of a table under the heading on the page that sets something: (its cells, its settings)."""
+    for line in (ROOT / page).read_text(encoding="utf-8").split(heading, 1)[1].splitlines():
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
         settings = [setting(c) for c in cells if re.fullmatch(r"`[a-z_0-9]+ = [^`]+`", c)]
-        if not settings:
-            continue
-        check = next((c.strip("`") for c in cells if re.fullmatch(r"`check_[a-z_]+`", c)), None)
-        measured = re.fullmatch(r"([0-9.]+) mm³", cells[-1])
-        if check and measured:
-            decimals = len(measured.group(1).partition(".")[2])
-            controls.append((check, settings, (float(measured.group(1)), decimals)))
-        elif not check:
-            controls.append(("check_parts", settings, "assert"))
-    return controls
+        if settings:
+            yield cells, settings
 
 
 def setting(cell):
     name, value = cell.strip("`").split(" = ", 1)
     return name, value
+
+
+def volume_in(cell):
+    """A volume a table cell gives - "237.9 mm³", or "`check_wires`: 4.8 mm³, all in the channel" - as
+    (value, its number of decimals), or None."""
+    found = re.search(r"([0-9.]+) mm³", cell)
+    return (float(found.group(1)), len(found.group(1).partition(".")[2])) if found else None
 
 
 def controls():
@@ -206,9 +241,9 @@ def controls():
     but by a different amount than the page says - the geometry changed, so the page is out of date."""
     cases = documented_controls()
     with tempfile.TemporaryDirectory() as tmp:
-        results = parallel(lambda c: run_part(c[0], c[1], tmp), cases)
+        results = parallel(lambda c: run_case(c[1], c[2], c[3], tmp, c[5]), cases)
     failed = 0
-    for (check, settings, expected), (volume, bad, log) in zip(cases, results):
+    for (check, _, _, settings, expected, _), (volume, bad, log) in zip(cases, results):
         label = f"{check:17} " + ", ".join(f"{n} = {v}" for n, v in settings)
         fired = "Assertion" in log
         if expected == "assert":
@@ -223,7 +258,7 @@ def controls():
             verdict = (f"ok    {volume:.3f} mm3" if near else f"MOVED {volume:.3f} mm3, the page says {value}")
         failed += not verdict.startswith("ok")
         print(f"{label:58} {verdict}")
-    print(f"{len(cases) - failed} of {len(cases)} as docs/checking.md says")
+    print(f"{len(cases) - failed} of {len(cases)} as docs/checking.md and docs/wiring.md say")
     return failed == 0
 
 

@@ -8,8 +8,8 @@ Everything below except `scad-check.sh` runs from one script, with OpenSCAD 2021
 [uv](https://docs.astral.sh/uv/), from the repository's root:
 
 ```sh
-uv run scripts/checks.py collisions   # the five collision checks, the box both ways round
-uv run scripts/checks.py controls     # every positive control below, re-measured against these tables
+uv run scripts/checks.py collisions   # the five collision checks, the box both ways round; and check_wires
+uv run scripts/checks.py controls     # every positive control below and on Wiring, re-measured
 uv run scripts/checks.py figures      # every picture in docs/, each render read for errors
 ```
 
@@ -69,8 +69,8 @@ that its zero-volume result is not a valid 2-manifold; that warning is expected 
 
 Each setting breaks one thing; the check, or an assert, must catch it. Measured 5 Oct 2026.
 
-`checks.py controls` reads both tables from this page and runs every row. It fails a control that no
-longer fails (**blind**: its check can no longer see what it guards) and one that fails by a different
+`checks.py controls` reads both tables from this page, and the wire routes' table from
+[Wiring](wiring.md), and runs every row. It fails a control that no longer fails (**blind**: its check can no longer see what it guards) and one that fails by a different
 amount than the table gives (**moved**: the geometry changed, so this page is out of date).
 
 | Check | Setting | What it breaks | Measured |

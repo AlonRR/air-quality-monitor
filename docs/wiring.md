@@ -87,7 +87,7 @@ breaks — OpenSCAD still exits 0, so read the output:
 
 - no bend tighter than its wire takes: 3 mm for the solid wire, 1 mm for the lead's;
 - every wire clear of every other, except within 5 mm of a pad two of them share;
-- every wire at least 3 mm from the antenna's loop and pole — they come to 4.2 mm;
+- every wire at least 3 mm from the antenna's loop and pole — they come to 4.1 mm;
 - the two wires stacked under a back pad fit `back_wire_room`.
 
 Its last line gives the tightest bend, the nearest two wires and the nearest the antenna.
@@ -102,15 +102,16 @@ openscad -o check_wires.stl -D 'view="check_wires"' models/assembly-views.scad  
 ```
 
 It counts the strip along the GY-SGP41's pin holes, on its back, as bare — the wires leave the module
-there.
+there. `uv run scripts/checks.py collisions` runs it with the box's collision checks, and
+`checks.py controls` runs every row below (see [Checking it](checking.md)).
 
-Each check has a setting that breaks it, measured 3 Oct 2026:
+Each check has a setting that breaks it, measured 5 Oct 2026:
 
 | Setting | What it breaks | Caught by |
 |---|---|---|
-| `gy_pitch = 1.0` | the SGP41's wires laid closer than they are thick | an assert: 0.74 mm of overlap |
+| `gy_pitch = 1.0` | the SGP41's wires laid closer than they are thick | an assert: 0.68 mm of overlap |
 | `bend_r = 6` | segments too short for the bends asked of them | an assert |
-| `ant_clear = 5` | a limit the routes, at 4.2 mm, do not meet | an assert |
+| `ant_clear = 5` | a limit the routes, at 4.1 mm, do not meet | an assert |
 | `back_wire_room = 2.5` | less room under the back pads than the stacked wires need | an assert |
 | `z_cross = 45.5` | the SGP41's wires lifted half a millimetre in their channel, into its roof rib | `check_wires`: 4.8 mm³, all in the channel |
 
