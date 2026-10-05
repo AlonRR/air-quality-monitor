@@ -86,7 +86,8 @@ pin_pitch = 2.54;                                           // the SuperMini's 0
 sm_lip_x0 = sm_usb_x + pin_mid + 2 * pin_pitch;             // the cover's front clasp, from the 4th pin
 stop_x0   = sm_ant_x + pocket_fit;                          // the stops, just past the antenna end
 sm_lip_x1 = stop_x0;
-clasp_xs  = [[sm_usb_x + pin_mid + pin_pitch / 2 + 0.5, sm_usb_x + pin_mid + pin_pitch / 2 + 0.5 + clasp_len],
+clasp_x0  = sm_usb_x + pin_mid + pin_pitch / 2 + 0.5;       // the first clip's start, just past the second pin
+clasp_xs  = [[clasp_x0, clasp_x0 + clasp_len],
              [sm_ant_x - clasp_len, sm_ant_x]];             // the two clasps' X ranges along the back edge
 
 // =================================================================== derived: Y (out from the wall)
@@ -177,8 +178,12 @@ ch_notch = gy_yp - gap;                          // the SPS30 channel wall's fro
 gy_bend_r  = 3.0;                                             // the solid wire's tightest bend
 gy_stub    = 1.0;                                             // straight out of a solder joint first
 gy_pitch   = gy_wd + 0.34;                                    // the wires' spacing, centre to centre
-function gy_pin_x(i) = gy_hole_lowx ? gy_x1 - 1.5 - i * 2.54 : gy_x0 + 1.5 + i * 2.54;   // SDA, SCL, GND, VIN
-gy_pin_z   = gy_z1 - 1.3;
+gy_pin_pitch = 2.54;                                          // the module's 0.1-inch pin pitch
+gy_pin_end   = 1.5;                                           // its first pin hole's centre from its end
+gy_pin_in    = 1.3;                                           // the pin holes' centres from its top edge
+// the pin holes along the module, SDA, SCL, GND, VIN from the end away from its mounting hole
+function gy_pin_x(i) = gy_hole_lowx ? gy_x1 - gy_pin_end - i * gy_pin_pitch : gy_x0 + gy_pin_end + i * gy_pin_pitch;
+gy_pin_z   = gy_z1 - gy_pin_in;
 function gy_rise_x(i) = max(gy_pin_x(i), ch_x1 + cradle_t + gy_wd / 2 + 0.15);
 gy_x_up    = min([for (i = [0 : 3]) gy_rise_x(i)]);            // the riser nearest the SPS30
 gy_ch_lane = [for (i = [0 : 3]) back_t + key_slack + key_head_h + 0.1 + gy_wd / 2 + i * gy_pitch];

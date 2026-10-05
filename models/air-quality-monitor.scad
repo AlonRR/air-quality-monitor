@@ -52,24 +52,12 @@ module fillet_line(p, u, v, w, len) cove_line(p, u, v, w, len, fillet_r);
 module fillet_ring_y(x, z, rc, y0) cove_ring_y(x, z, rc, y0, fillet_r);
 
 // Slots through a face, spread across [a0, a1] - in the cover's front (X), or its side wall (Z).
-module vent_slots(x0, x1, z0, z1) {
-    n     = floor((x1 - x0 + vent_rib) / (vent_w + vent_rib));
-    used  = n * vent_w + (n - 1) * vent_rib;
-    start = x0 + (x1 - x0 - used) / 2;
-    if (n > 0)
-        for (i = [0 : n - 1])
-            translate([start + i * (vent_w + vent_rib), y_in1 - eps, z0])
-                cube([vent_w, front_t + 2 * eps, z1 - z0]);
-}
-module side_vents(y0, y1, z0, z1) {
-    n     = floor((z1 - z0 + vent_rib) / (vent_w + vent_rib));
-    used  = n * vent_w + (n - 1) * vent_rib;
-    start = z0 + (z1 - z0 - used) / 2;
-    if (n > 0)
-        for (i = [0 : n - 1])
-            translate([W - wall - eps, y0, start + i * (vent_w + vent_rib)])
-                cube([wall + 2 * eps, y1 - y0, vent_w]);
-}
+module vent_slots(x0, x1, z0, z1)
+    for (x = spread(x0, x1, vent_w, vent_rib))
+        translate([x, y_in1 - eps, z0]) cube([vent_w, front_t + 2 * eps, z1 - z0]);
+module side_vents(y0, y1, z0, z1)
+    for (z = spread(z0, z1, vent_w, vent_rib))
+        translate([W - wall - eps, y0, z]) cube([wall + 2 * eps, y1 - y0, vent_w]);
 
 // The nut's pocket, from the wall side up to its shoulder, and over it the ceiling's three layers:
 // a slot the screw hole's width right across the pocket's flats, then a square, then the round hole.

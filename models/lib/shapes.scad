@@ -25,6 +25,10 @@ module slab_xz(x0, x1, y0, y1, z0, z1, r = 0) {
 // A box from corner to corner.
 module box3(a, b) translate(a) cube(b - a);
 
+// Where to start each of as many w-wide slots as fit across [a0, a1], rib apart, the row centred in it.
+function spread(a0, a1, w, rib) = let(n = floor((a1 - a0 + rib) / (w + rib)), used = n * w + (n - 1) * rib,
+    start = a0 + (a1 - a0 - used) / 2) n > 0 ? [for (i = [0 : n - 1]) start + i * (w + rib)] : [];
+
 // A cylinder along Y, and one along X.
 module cyl_y(x, z, r, y0, y1, fn = 0) {
     translate([x, y0, z]) rotate([-90, 0, 0])
