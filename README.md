@@ -76,12 +76,14 @@ opening is a hole in the first layers or a notch open at an edge.
 |---|---|
 | [`docs/`](docs/) | the pages above and their pictures |
 | [`models/air-quality-monitor.params.scad`](models/air-quality-monitor.params.scad) | every setting, measurement and fit — the one file to edit |
-| [`models/air-quality-monitor.scad`](models/air-quality-monitor.scad) | the model, its asserts and its collision checks |
+| [`models/air-quality-monitor.layout.scad`](models/air-quality-monitor.layout.scad) | every dimension the settings imply, and the rules (asserts) they must keep — values only, no geometry |
+| [`models/air-quality-monitor.scad`](models/air-quality-monitor.scad) | the model: both parts drawn from the layout, and its collision checks |
 | `models/air-quality-monitor-back.scad`, `-cover.scad` | one part each; check and slice through these |
 | [`models/assembly-views.scad`](models/assembly-views.scad) | the assembly pictures: exploded; open, with every wire's route and the wiring table; the wires at the pins close up; and the wires' collision check |
 | [`models/feature-map.scad`](models/feature-map.scad) | the numbered feature pictures |
 | [`models/board-measure.scad`](models/board-measure.scad) | the readings taken on the SuperMini and the GY-SGP41 |
 | [`models/lib/axes.scad`](models/lib/axes.scad) | the x, y and z arrows every picture carries |
+| [`models/lib/shapes.scad`](models/lib/shapes.scad), [`routes.scad`](models/lib/routes.scad) | shapes and wire routes that know nothing about the box: every size a parameter, loaded with `use` |
 | [`firmware/`](firmware/) | the node's ESPHome configuration, with its wiring table, and the secrets template. It is `print-chamber.yaml`, named for its first job: Home Assistant keys the history it records to that name |
 | [`scripts/scad-check.sh`](scripts/scad-check.sh) | renders a part, checks the mesh, slices it, and cross-checks the model against the profile |
 | [`scripts/checks.py`](scripts/checks.py) | the collision checks, the positive controls and the pictures, run as [Checking it](docs/checking.md) describes |
