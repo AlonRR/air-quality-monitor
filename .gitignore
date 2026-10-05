@@ -3,6 +3,9 @@
 *.3mf
 *.gcode
 
+# The one-file parts scripts/printables.py makes for Printables, from the sources.
+/printables/
+
 # OpenSCAD Customizer parameter sets. The GUI writes them by itself, and they become a second source of
 # truth that only the GUI reads. The .scad files are the source of truth.
 *.json

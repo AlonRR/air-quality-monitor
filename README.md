@@ -87,6 +87,8 @@ opening is a hole in the first layers or a notch open at an edge.
 | [`firmware/`](firmware/) | the node's ESPHome configuration, with its wiring table, and the secrets template. It is `print-chamber.yaml`, named for its first job: Home Assistant keys the history it records to that name |
 | [`scripts/scad-check.sh`](scripts/scad-check.sh) | renders a part, checks the mesh, slices it, and cross-checks the model against the profile |
 | [`scripts/checks.py`](scripts/checks.py) | the collision checks, the positive controls and the pictures, run as [Checking it](docs/checking.md) describes |
+| [`scripts/printables.py`](scripts/printables.py) | each printed part as one self-contained `.scad`, and its STL, for Printables: `uv run scripts/printables.py`, into `printables/` |
+| [`scripts/scadtools.py`](scripts/scadtools.py), [`scad-project.toml`](scad-project.toml) | what the scripts share, and what they need to know about this repository |
 
 ## Licence
 

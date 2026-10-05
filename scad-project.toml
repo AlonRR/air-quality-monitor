@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2026 Alon A. Rabinowitz
+# SPDX-License-Identifier: CERN-OHL-S-2.0
+#
+# What the shared OpenSCAD scripts need to know about this repository.
+
+[printables]
+# Each printed part's own file - the one that includes the model and picks the part. scripts/printables.py
+# makes each into one self-contained .scad, and its STL, for Printables.
+parts = ["models/air-quality-monitor-back.scad", "models/air-quality-monitor-cover.scad"]
