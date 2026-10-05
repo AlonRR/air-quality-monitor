@@ -29,6 +29,7 @@ and the board's USB-C end on your RIGHT as you face the box, which is low X - an
 outlet_at_left is set.
 */
 include <air-quality-monitor.params.scad>
+use <lib/shapes.scad>
 
 draw_model = true;
 
@@ -329,50 +330,17 @@ assert(bump_x0 - part_fit - rib_t - (sm_ant_x - pole_in + 0.5) >= gap,
 assert(u_drop > part_fit + 2 * fdm_extrusion_w, "the bump the cover's top locates on has no height");
 
 // =================================================================== geometry helpers
-// A 2D rectangle with its convex corners rounded: shrink, then grow (lesson 5 of docs/openscad-basics).
-module rrect(w, h, r) {
-    if (r > 0) offset(r = r) offset(delta = -r) square([w, h]);
-    else square([w, h]);
-}
-
-// A block spanning the given X, Y and Z ranges, its corners rounded as seen from the front.
-module slab_xz(x0, x1, y0, y1, z0, z1, r = 0) {
-    translate([0, y1, 0])
-        rotate([90, 0, 0])
-            linear_extrude(height = y1 - y0)
-                translate([x0, z0]) rrect(x1 - x0, z1 - z0, r);
-}
-// A box from corner to corner.
-module box3(a, b) translate(a) cube(b - a);
-
-// A cylinder along Y, and one along X.
-module cyl_y(x, z, r, y0, y1, fn = 0) {
-    translate([x, y0, z]) rotate([-90, 0, 0])
-        if (fn > 0) cylinder(r = r, h = y1 - y0, $fn = fn); else cylinder(r = r, h = y1 - y0);
-}
-module cyl_x(y, z, r, x0, x1) {
-    translate([x0, y, z]) rotate([0, 90, 0]) cylinder(r = r, h = x1 - x0);
-}
+// The plain shapes - rrect, slab_xz, box3, cyl_y, cyl_x and the coves - are in lib/shapes.scad.
 
 // ------------------------------------------------------------------ fillets
 // Concave fillets at the roots of the thin features, for strength - only in 90-degree inside corners. Each
 // is cut back fillet_clear from whatever it must not touch: the cover's walls, the plate's bump, and the
 // cover's bottom wall beside the window. One value, so one setting breaks them all (docs/checking.md).
 fillet_clear = part_fit;
-// The cove in its own frame: the face it stands on along +X, the feature up +Y, radius r. It reaches eps
-// past both, into the face and the feature, so it joins them by a face rather than an edge.
-module cove2d(r) difference() {
-    translate([-eps, -eps]) square([r + eps, r + eps]);
-    translate([r, r]) circle(r = r, $fn = 32);
-}
-// A cove along a straight root: p on the root edge, u along the face away from the feature, v up the
-// feature, w along the edge for len.
-module fillet_line(p, u, v, w, len, r = fillet_r)
-    multmatrix([[u[0], v[0], w[0], p[0]], [u[1], v[1], w[1], p[1]], [u[2], v[2], w[2], p[2]], [0, 0, 0, 1]])
-        linear_extrude(height = len) cove2d(r);
-// A cove round a cylinder along Y standing on the face Y = y0.
-module fillet_ring_y(x, z, rc, y0, r = fillet_r)
-    translate([x, y0, z]) rotate([-90, 0, 0]) rotate_extrude($fn = 64) translate([rc, 0]) cove2d(r);
+// The lib's coves at this box's radius: along a straight root (p on the edge, u along the face away from
+// the feature, v up the feature, w along the edge for len), and round a cylinder along Y.
+module fillet_line(p, u, v, w, len) cove_line(p, u, v, w, len, fillet_r);
+module fillet_ring_y(x, z, rc, y0) cove_ring_y(x, z, rc, y0, fillet_r);
 
 // Slots through a face, spread across [a0, a1] - in the cover's front (X), or its side wall (Z).
 module vent_slots(x0, x1, z0, z1) {
