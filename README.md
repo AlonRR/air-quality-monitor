@@ -84,6 +84,7 @@ opening is a hole in the first layers or a notch open at an edge.
 | [`models/lib/axes.scad`](models/lib/axes.scad) | the x, y and z arrows every picture carries |
 | [`firmware/`](firmware/) | the node's ESPHome configuration, with its wiring table, and the secrets template. It is `print-chamber.yaml`, named for its first job: Home Assistant keys the history it records to that name |
 | [`scripts/scad-check.sh`](scripts/scad-check.sh) | renders a part, checks the mesh, slices it, and cross-checks the model against the profile |
+| [`scripts/checks.py`](scripts/checks.py) | the collision checks, the positive controls and the pictures, run as [Checking it](docs/checking.md) describes |
 
 ## Licence
 

@@ -1,8 +1,21 @@
 # Checking it
 
 How to tell that the model is still right after a change. There are two layers: the repo's
-`scad-check.sh` on each printed part, and four collision checks in the model, backed by its asserts.
+`scad-check.sh` on each printed part, and five collision checks in the model, backed by its asserts.
 The wire routes and their checks are on [Wiring](wiring.md).
+
+Everything below except `scad-check.sh` runs from one script, with OpenSCAD 2021.01 and
+[uv](https://docs.astral.sh/uv/), from the repository's root:
+
+```sh
+uv run scripts/checks.py collisions   # the five collision checks, the box both ways round
+uv run scripts/checks.py controls     # every positive control below, re-measured against these tables
+uv run scripts/checks.py figures      # every picture in docs/, each render read for errors
+```
+
+Each exits 1 if anything is not as this page says. `JOBS=4` runs four renders at once. `figures` renders
+into a scratch folder; `figures --write` renders over the pictures in `docs/`. Rendering the same model
+twice gives PNGs a few hundred bytes apart, so write and commit them only when the model changed.
 
 Every check here has a **positive control**: a setting that breaks the thing being checked, with what it
 measured. A check that has never been seen to fail is not yet evidence. If a control stops failing after
@@ -32,14 +45,15 @@ cover each 68.7 × 76.3 mm on the bed.
 
 ## Collisions — in the model
 
-Render each to STL from the repository's root, for example:
+`checks.py collisions` renders each to STL; by hand, from the repository's root:
 
 ```sh
 openscad -o check.stl -D 'part="check_components"' models/air-quality-monitor.scad
 ```
 
 **Run each with `outlet_at_left` set both ways** (add `-D outlet_at_left=true`). The model mirrors, and a
-check run one way only has passed a mirrored mistake before.
+check run one way only has passed a mirrored mistake before. `check_parts` touches by design, so CGAL warns
+that its zero-volume result is not a valid 2-manifold; that warning is expected there.
 
 | Check | What it intersects | Must be |
 |---|---|---|
@@ -53,7 +67,11 @@ check run one way only has passed a mirrored mistake before.
 
 ## Positive controls
 
-Each setting breaks one thing; the check, or an assert, must catch it. Measured 3 Oct 2026.
+Each setting breaks one thing; the check, or an assert, must catch it. Measured 5 Oct 2026.
+
+`checks.py controls` reads both tables from this page and runs every row. It fails a control that no
+longer fails (**blind**: its check can no longer see what it guards) and one that fails by a different
+amount than the table gives (**moved**: the geometry changed, so this page is out of date).
 
 | Check | Setting | What it breaks | Measured |
 |---|---|---|---|
