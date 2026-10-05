@@ -3,8 +3,9 @@
 
 # print-chamber — the planned printer chamber node, on an ESP32-C3 SuperMini.
 #
-# The docs/ pages and the other .yaml files these comments name are in the 3D-printing toolkit this
-# repository was split from: https://github.com/AlonRR/3d-printing-toolkit
+# The docs/chamber-sensor pages and the other .yaml files these comments name are in printer-enclosure,
+# https://github.com/AlonRR/printer-enclosure - the enclosure's sensing and airflow, split, as this
+# repository was, from https://github.com/AlonRR/3d-printing-toolkit
 #
 # Today it carries particulate (SPS30) and VOC/NOx (SGP41). The chamber's own sensor and the
 # fume-fan control join it later on the pins already reserved for them (GPIO10 fan PWM, GPIO3

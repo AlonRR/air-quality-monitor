@@ -128,8 +128,9 @@ the CERN-OHL-S text again, for tools that look only there.
 ## Related
 
 This repository was split out of the [3D-printing toolkit](https://github.com/AlonRR/3d-printing-toolkit),
-with its history. The toolkit holds the material these files refer to: the FDM design rules, the OpenSCAD
-lessons, the chamber-sensor notes the firmware follows, and the slicer profiles the box is printed with. A
-`docs/…` page or a `.yaml` named in a comment, and not found here, is in the toolkit.
+with its history. The toolkit holds the FDM design rules and the slicer profiles the box is printed with;
+the chamber-sensor notes the firmware follows, and the `.yaml` files its comments name, are in
+[**printer-enclosure**](https://github.com/AlonRR/printer-enclosure), the enclosure this monitor hangs
+beside. A `docs/…` page named in a comment, and not found here, is in one of the two.
 
 _Parts of this repository were drafted with the help of an LLM agent; reviewed and verified locally._
