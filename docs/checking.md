@@ -11,6 +11,7 @@ Everything below except `scad-check.sh` runs from one script, with OpenSCAD 2021
 uv run scripts/checks.py collisions   # the five collision checks, the box both ways round; and check_wires
 uv run scripts/checks.py controls     # every positive control below and on Wiring, re-measured
 uv run scripts/checks.py figures      # every picture in docs/, each render read for errors
+uv run scripts/checks.py lengths      # the wire lengths on Wiring, against the routes they come from
 ```
 
 Each exits 1 if anything is not as this page says. `JOBS=4` runs four renders at once. `figures` renders

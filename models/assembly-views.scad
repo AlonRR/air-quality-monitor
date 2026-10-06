@@ -174,6 +174,23 @@ module check_routes() {
     echo(str("wires: tightest bend ", wire_min_r, " mm over what each takes; nearest two ", wire_min_gap,
              " mm apart; nearest the antenna ", wire_ant, " mm"));
 }
+
+// How much wire each takes: its route as drawn, plus the wire that goes through a hole and into the solder
+// at each soldered end, plus a margin to cut it long by and trim at the pad - the centimetre to spare the
+// lead is shortened to. The SGP41's are soldered at both ends; the lead's only at the pad, its other end
+// crimped into the plug, so for the lead it is how much to keep from the plug. Rounded up to 5 mm.
+solder_end  = 3.0;    // through a pin hole's or a pad's board, and into its joint
+trim_margin = 10.0;   // cut long by this, then trim at the pad
+wire_names  = ["SGP41 SDA", "SGP41 SCL", "SGP41 GND", "SGP41 VIN",
+               "SPS30 black", "SPS30 red", "SPS30 white", "SPS30 yellow", "SPS30 orange"];
+wire_ends   = concat([for (i = [0 : 3]) 2], [for (i = [0 : 4]) 1]);
+wire_route  = [for (i = [0 : len(all_routes) - 1]) route_length(all_routes[i], all_r[i])];
+wire_cut    = [for (i = [0 : len(all_routes) - 1]) ceil((wire_route[i] + wire_ends[i] * solder_end + trim_margin) / 5) * 5];
+module report_lengths() {
+    for (i = [0 : len(all_routes) - 1])
+        echo(str("wire length: ", wire_names[i], ": route ", round(wire_route[i]), " mm, cut ", wire_cut[i], " mm"));
+    echo(str("wire total: SGP41 ", wire_cut[0] + wire_cut[1] + wire_cut[2] + wire_cut[3], " mm"));
+}
 module wires(s = 0, fn = 10) {
     for (i = [0 : 4]) wire(lead_routes[i], lead_colours[i], wd, lead_bend_r, s, fn);
     for (i = [0 : 3]) wire(gy_routes[i], gy_colours[i], gy_wd, bend_r, s, fn);
@@ -206,6 +223,7 @@ module guide(a, b) color([0.6, 0.6, 0.6]) hull() { translate(a) sphere(d = 0.5, 
 if (view == "open") {
     cam = [78, 0, 195];
     check_routes();
+    report_lengths();
     color([0.80, 0.72, 0.58]) back_plate();
     sps30(); supermini(); sgp41(); m25(); nuts();
     wires();

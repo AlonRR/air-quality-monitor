@@ -74,8 +74,9 @@ rm -rf scad-tools && mkdir scad-tools && curl -sL "https://github.com/AlonRR/sca
 ```
 
 **Hardware:** two M3 × 20 socket head cap screws and two M3 nuts for the cover, one M2.5 × 6 socket head cap
-screw for the SGP41, two 4 × 20 chipboard screws and their wall plugs to hang it, and 22 AWG solid hookup
-wire for the SGP41. No tape, no glue.
+screw for the SGP41, two 4 × 20 chipboard screws and their wall plugs to hang it, and half a metre of
+22 AWG solid hookup wire for the SGP41 — [how much each wire takes](docs/wiring.md#how-much-wire). No
+tape, no glue.
 
 ## Printing
 

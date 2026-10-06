@@ -80,6 +80,34 @@ the wall screws' heads end up under those pads.
 **Never** run a wire over the top of the board, near the antenna's loop or pole, or into the window or
 the air gap in front of the SPS30.
 
+## How much wire
+
+Each wire's length is its route as drawn, bends and all. **Cut** adds 3 mm at each soldered end, for the
+wire that goes through the hole and into the joint, and 10 mm to cut long by and trim at the pad; it is
+rounded up to 5 mm. The SGP41's wires are soldered at both ends. The SPS30's lead is soldered only at the
+pad — its other end is crimped into the plug — so for the lead, **cut** is how much of each wire to keep,
+measured from the top of the plug: the lead shortened to reach with about a centimetre to spare.
+
+| Wire | To | Route | Cut |
+|---|---|---|---|
+| SGP41 SDA | GPIO5 | 105 mm | 125 mm |
+| SGP41 SCL | GPIO6 | 100 mm | 120 mm |
+| SGP41 GND | GND | 87 mm | 105 mm |
+| SGP41 VIN | 3V3 | 81 mm | 100 mm |
+| SPS30 black | 5V | 33 mm | 50 mm |
+| SPS30 red | GPIO5 | 32 mm | 45 mm |
+| SPS30 white | GPIO6 | 24 mm | 40 mm |
+| SPS30 yellow | GND | 27 mm | 40 mm |
+| SPS30 orange | GND | 26 mm | 40 mm |
+
+**The SGP41 takes 450 mm of 22 AWG solid wire in all**; half a metre covers it. The SPS30's lead comes
+with the sensor, so only its length matters. A wire bent its own way rather than along the drawn route
+will differ by a few millimetres — which is what the margin is for.
+
+The open view prints these figures as it draws, as `wire length:` lines, and
+`uv run scripts/checks.py lengths` checks this table against them, so a route that changes cannot leave
+the table behind.
+
 ## Checking the routes
 
 The `open` view checks the routes as it draws them, and stops with an `ERROR: Assertion` line if one

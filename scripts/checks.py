@@ -13,6 +13,7 @@
   uv run scripts/checks.py figures [--write] [NAME ...]
                                           every picture in docs/, each render's output read for errors -
                                           rendered aside, or over docs/ with --write
+  uv run scripts/checks.py lengths        the wire lengths in docs/wiring.md, against the routes
   uv run scripts/checks.py stats A.stl [B.stl]   an STL's size and shape; given two, whether they match
 
 docs/checking.md and docs/wiring.md say what each check and control means; this file only runs them. The
@@ -218,8 +219,40 @@ def stats(paths):
     return True
 
 
+def lengths(_):
+    """The wire lengths docs/wiring.md gives - each wire's route and how much to cut, and the SGP41's total -
+    against the ones the open view works out from the routes as it draws them."""
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "open.echo"
+        _, log = render(out, WIRES, defines([("view", '"open"')]))
+        rendered = out.exists()
+        echo = log + (out.read_text(encoding="utf-8", errors="replace") if rendered else "")
+    if "Assertion" in echo or not rendered:
+        print("FAIL  the open view did not render cleanly")
+        return False
+    model = {m.group(1): (int(m.group(2)), int(m.group(3)))
+             for m in re.finditer(r"wire length: ([^:]+): route (\d+) mm, cut (\d+) mm", echo)}
+    total = re.search(r"wire total: SGP41 (\d+) mm", echo)
+    page = (ROOT / "docs/wiring.md").read_text(encoding="utf-8").split("## How much wire", 1)[1].split("\n## ", 1)[0]
+    table = {m.group(1): (int(m.group(2)), int(m.group(3)))
+             for m in re.finditer(r"^\| ((?:SGP41|SPS30) \w+) \|[^|\n]*\| (\d+) mm \| (\d+) mm \|$", page, re.M)}
+    said = re.search(r"takes (\d+) mm of 22 AWG", page)
+    failed = 0
+    for name in sorted(set(model) | set(table)):
+        m, t = model.get(name), table.get(name)
+        verdict = ("ok" if m == t else f"MOVED the model gives {m}, the page {t}")
+        failed += verdict != "ok"
+        print(f"{name:14} route {m[0] if m else '-':>4} mm, cut {m[1] if m else '-':>4} mm   {verdict}")
+    same_total = bool(total and said and total.group(1) == said.group(1))
+    failed += not same_total
+    print(f"{'SGP41 in all':14} {total.group(1) if total else '-'} mm   "
+          + ("ok" if same_total else f"MOVED the page says {said.group(1) if said else 'nothing'}"))
+    print(f"{len(model) + 1 - failed} of {len(model) + 1} as docs/wiring.md says")
+    return failed == 0 and len(model) > 0
+
+
 COMMANDS = {"collisions": lambda rest: collisions(), "controls": lambda rest: controls(),
-            "figures": figures, "stats": stats}
+            "figures": figures, "lengths": lengths, "stats": stats}
 
 
 def main(argv):
