@@ -11,6 +11,7 @@ path = [
   "PROJECT.yml",
   ".gitignore",
   ".gitattributes",
+  ".gitmodules",
   "firmware/.gitignore",
   "REUSE.toml",
 ]
