@@ -9,6 +9,7 @@ path = [
   "**/README.md",
   "docs/**",
   "PROJECT.yml",
+  ".repo-status",
   ".gitignore",
   ".gitattributes",
   ".gitmodules",
