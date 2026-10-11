@@ -1,0 +1,6 @@
+# The publish decision, where tooling can read it.
+# Convention: repo-secret-scan templates/publish-status.example
+
+publish: public
+reason:  published on GitHub; device Wi-Fi details stay in the gitignored secrets.yaml
+review:  2026-10-11
