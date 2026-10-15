@@ -23,18 +23,11 @@ its back, so on the bed its y is up.
 
 ## Status
 
-**The box is modelled, checked, and every fit in it tested** in ASA on the printer; `untested_fits` and
-`unmeasured` are both empty, so `scad-check.sh` passes the back plate and the cover.
+**The box is printed, and it fits.** Both parts are modelled, checked and printed in ASA on the printer,
+and every fit in them is tested: `untested_fits` and `unmeasured` are both empty, so `scad-check.sh`
+passes the back plate and the cover.
 
-**Changed since the last printed box** — checked in the model, not printed yet:
-
-- the USB-C slot in the cover's side wall, open to its back edge;
-- the divider under the SPS30: a flush wall, placed at the air-face gap measured on the sensor;
-- the SGP41 wire channel's lips, now one bead deep;
-- the SPS30 standing 2 mm off the plate on three ribs, so air rises behind it and cools it;
-- 1 mm fillets at the roots of the thin parts that take a load, and round the SPS30's window.
-
-**The firmware's** configuration is valid and has compiled; it is not flashed yet.
+**The firmware's** configuration is valid and has compiled; the node is not wired or flashed yet.
 
 ## Building it
 
