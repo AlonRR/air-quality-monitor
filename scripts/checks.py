@@ -113,7 +113,8 @@ def collisions():
 def documented_controls():
     """The controls the two pages list - docs/checking.md for the box, docs/wiring.md for the wire routes -
     as (label, file, selector, settings, expected, export), expected a volume in mm3 with the number of
-    decimals the page gives it, or "assert"."""
+    decimals the page gives it, or "assert". A row that sets something but gives neither is a control that
+    would silently not run, so it stops the run instead."""
     controls = []
     for cells, settings in table_rows("docs/checking.md", "## Positive controls"):
         check = next((c.strip("`") for c in cells if re.fullmatch(r"`check_[a-z_]+`", c)), None)
@@ -122,12 +123,16 @@ def documented_controls():
             controls.append((check, *part(check), settings, measured, "stl"))
         elif not check:
             controls.append(("check_parts", *part("check_parts"), settings, "assert", "stl"))
+        else:
+            raise ValueError(f"docs/checking.md: checks.py cannot read this control's volume: {' | '.join(cells)}")
     for cells, settings in table_rows("docs/wiring.md", "## Checking the routes"):
         measured = volume_in(cells[-1])
         if "`check_wires`" in cells[-1] and measured:
             controls.append(("check_wires", *view("check_wires"), settings, measured, "stl"))
         elif cells[-1].startswith("an assert"):
             controls.append(("the open view", *view("open"), settings, "assert", "echo"))
+        else:
+            raise ValueError(f"docs/wiring.md: checks.py cannot read what this control finds: {' | '.join(cells)}")
     return controls
 
 

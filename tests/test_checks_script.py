@@ -69,3 +69,16 @@ def test_every_documented_control_row_is_run():
     rows = (len(list(checks.table_rows("docs/checking.md", "## Positive controls")))
             + len(list(checks.table_rows("docs/wiring.md", "## Checking the routes"))))
     assert len(checks.documented_controls()) == rows == 33
+
+
+@pytest.mark.parametrize("page, bad_row", [
+    ("checking.md", "| `check_parts` | `part_fit = -0.6` | 237.9 mm3 |"),
+    ("wiring.md", "| `z_cross = 45.5` | the crossing | `check_wires` finds it |"),
+])
+def test_a_control_row_it_cannot_read_fails(pages, page, bad_row):
+    """A row that sets something but gives neither a volume nor an assert is a control nobody runs: it
+    must stop the run, not drop out of it."""
+    with (pages / page).open("a", encoding="utf-8") as f:
+        f.write(bad_row + "\n")
+    with pytest.raises(ValueError, match="cannot read"):
+        checks.documented_controls()
