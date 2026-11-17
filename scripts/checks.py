@@ -60,7 +60,8 @@ FIGURES = {
     "sps30-measure": ("models/fits/sps30-measure.scad", ["--imgsize=1800,1300", "--projection=o", "--viewall",
                       "--autocenter", "--camera=0,0,0,86,0,0,300"]),
 }
-BLANK_BELOW = 15_000   # bytes: the blank pictures a failed assert left were 4-13 kB, the real ones 22 kB and up
+LOG_TAIL = 12          # lines of OpenSCAD's output a control that is not as its page says prints
+BLANK_BELOW = 15_000  # bytes: the blank pictures a failed assert left were 4-13 kB, the real ones 22 kB and up
 
 
 def run_case(scad, selector, settings, tmp, ext="stl"):
@@ -180,6 +181,10 @@ def controls():
             verdict = (f"ok    {volume:.3f} mm3" if near else f"MOVED {volume:.3f} mm3, the page says {value}")
         failed += not verdict.startswith("ok")
         print(f"{label:58} {verdict}")
+        if not verdict.startswith("ok"):
+            # The end of OpenSCAD's output, so a miss that does not come back can still be diagnosed.
+            for line in [x for x in log.splitlines() if x.strip()][-LOG_TAIL:]:
+                print(f"{'':18}| {line[:160]}")
     print(f"{len(cases) - failed} of {len(cases)} as docs/checking.md and docs/wiring.md say")
     return failed == 0
 

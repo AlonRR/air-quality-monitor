@@ -82,3 +82,16 @@ def test_a_control_row_it_cannot_read_fails(pages, page, bad_row):
         f.write(bad_row + "\n")
     with pytest.raises(ValueError, match="cannot read"):
         checks.documented_controls()
+
+
+def test_a_control_not_as_the_page_says_shows_openscads_output(monkeypatch, capsys):
+    """A BLIND or MOVED control prints the end of OpenSCAD's output, so a miss can be diagnosed from the run
+    that had it: on 17 Nov 2026 a control failed in 2 of 16 runs (once an assert control, BLIND) and
+    passed when run again, with nothing to show why."""
+    control = ("check_parts", "models/air-quality-monitor.scad", ("part", '"check_parts"'), [("bump_w", "30")],
+               "assert", "stl")
+    monkeypatch.setattr(checks, "documented_controls", lambda: [control])
+    monkeypatch.setattr(checks, "run_case", lambda *a: (None, [], "Parsing design\nCGAL cache\nthe last line"))
+    assert checks.controls() is False
+    out = capsys.readouterr().out
+    assert "BLIND" in out and "the last line" in out
