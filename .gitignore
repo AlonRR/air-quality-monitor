@@ -16,3 +16,7 @@
 *.PDF
 
 __pycache__/
+
+# The tests' environment and caches, made again by uv run and pytest.
+.venv/
+.pytest_cache/

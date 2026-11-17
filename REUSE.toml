@@ -18,3 +18,9 @@ path = [
 ]
 SPDX-FileCopyrightText = "2026 Alon A. Rabinowitz"
 SPDX-License-Identifier = "CERN-OHL-S-2.0"
+
+# The tests' lockfile, written by uv, which cannot carry a header.
+[[annotations]]
+path = ["uv.lock"]
+SPDX-FileCopyrightText = "2026 Alon A. Rabinowitz"
+SPDX-License-Identifier = "MPL-2.0"

@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 Alon A. Rabinowitz
+# SPDX-License-Identifier: MPL-2.0
+#
+# Only the tests' tools: the model is OpenSCAD and the scripts need nothing beyond Python itself.
+# Run the tests from the repository's root with:  uv run --group test pytest
+
+[project]
+name = "air-quality-monitor"
+version = "0"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+test = ["pytest>=8"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

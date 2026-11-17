@@ -18,6 +18,17 @@ Each exits 1 if anything is not as this page says. `JOBS=4` runs four renders at
 into a scratch folder; `figures --write` renders over the pictures in `docs/`. Rendering the same model
 twice gives PNGs a few hundred bytes apart, so write and commit them only when the model changed.
 
+The same checks run as tests, with what `checks.py` reads from this page, in about a minute:
+
+```sh
+uv run --group test pytest
+```
+
+`tests/test_model.py` runs `collisions`, `controls` and `lengths` and pins how many of each there are, so a
+check or control added here changes a test in the same commit; `tests/test_checks_script.py` checks how
+`checks.py` reads the tables. The model tests fail, not skip, when OpenSCAD is missing. `figures` and
+`scad-check.sh` are not among them: a picture is checked by eye, and `scad-check.sh` needs PrusaSlicer.
+
 Every check here has a **positive control**: a setting that breaks the thing being checked, with what it
 measured. A check that has never been seen to fail is not yet evidence. If a control stops failing after
 a change, the check has gone blind and needs a new control.
